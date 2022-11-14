@@ -5,6 +5,16 @@ from ui import Ui_MainWindow
 from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QPushButton, QLineEdit
 
 
+def encrypt(string):
+    bits = bin(int.from_bytes(string.encode('utf-8', 'surrogatepass'), 'big'))[2:]
+    return hex(int(bits.zfill(8 * ((len(bits) + 7) // 8))))
+
+
+def decrypt(string):
+    n = int(str(int(string, 16)), 2)
+    return n.to_bytes((n.bit_length() + 7) // 8, 'big').decode('utf-8', 'surrogatepass') or '\0'
+
+
 class Login(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
@@ -53,11 +63,7 @@ class Login(QMainWindow, Ui_MainWindow):
         except Exception as ex:
             print(ex)
 
-    def encrypt(self):
-        pass
 
-    def decrypt(self):
-        pass
 
 
 if __name__ == '__main__':
