@@ -18,9 +18,11 @@ class Market(QMainWindow, Ui_MainWindow):
     def initUI(self):
         # TODO: Сделать инициализацию пользователя
         self.set_market_table("SELECT name, price, category, available FROM goods")
+        self.set_basket_table()
         self.set_combo_categories()
         self.btn_search.clicked.connect(self.search_goods)
         self.btn_add_to_basket.clicked.connect(self.add_to_basket)
+        self.btn_reset.clicked.connect(self.reset_basket)
 
     def set_market_table(self, query):
         try:
@@ -51,30 +53,32 @@ class Market(QMainWindow, Ui_MainWindow):
         self.set_market_table(query)
 
     def add_to_basket(self):
-        # TODO: подумать стоит ли добавлять корзину в дб
-        try:
-            rows = list(set([i.row() for i in self.tableWidget_market.selectedItems()]))
-            ids = [self.tableWidget_market.item(i, 0).text() for i in rows]
-            for i in rows:
-                self.basket.append([self.tableWidget_market.item(i, 0).text(),
-                                    self.tableWidget_market.item(i, 1).text(),
-                                    self.tableWidget_market.item(i, 2).text(),
-                                    self.tableWidget_market.item(i, 3).text()])
-            self.tableWidget_basket.setColumnCount(4)
-            self.tableWidget_basket.setColumnWidth(0, 185)
-            self.tableWidget_basket.setRowCount(0)
-            self.tableWidget_basket.setHorizontalHeaderLabels(['Имя', 'Цена', 'Категория', 'Наличие'])
-            for i, row in enumerate(self.basket):
-                self.tableWidget_basket.setRowCount(
-                    self.tableWidget_basket.rowCount() + 1)
-                for j, elem in enumerate(row):
-                    self.tableWidget_basket.setItem(
-                        i, j, QTableWidgetItem(str(elem)))
-        except Exception as ex:
-            print(ex)
+        # TODO: Сделать добавление в дб
+        rows = list(set([i.row() for i in self.tableWidget_market.selectedItems()]))
+        ids = [self.tableWidget_market.item(i, 0).text() for i in rows]
+        for i in rows:
+            self.basket.append([self.tableWidget_market.item(i, 0).text(),
+                                self.tableWidget_market.item(i, 1).text(),
+                                self.tableWidget_market.item(i, 2).text(),
+                                self.tableWidget_market.item(i, 3).text()])
+        self.set_basket_table()
+
+    def set_basket_table(self):
+        self.tableWidget_basket.setColumnCount(4)
+        self.tableWidget_basket.setColumnWidth(0, 185)
+        self.tableWidget_basket.setRowCount(0)
+        self.tableWidget_basket.setHorizontalHeaderLabels(['Имя', 'Цена', 'Категория', 'Наличие'])
+        for i, row in enumerate(self.basket):
+            self.tableWidget_basket.setRowCount(
+                self.tableWidget_basket.rowCount() + 1)
+            for j, elem in enumerate(row):
+                self.tableWidget_basket.setItem(
+                    i, j, QTableWidgetItem(str(elem)))
 
     def reset_basket(self):
-        pass
+        # TODO: Подключить к дб
+        self.basket = []
+        self.set_basket_table()
 
     def delete_from_basket(self):
         pass
@@ -87,6 +91,7 @@ class Market(QMainWindow, Ui_MainWindow):
         pass
 
     def link_phone_number(self):
+        # TODO: Записывать в дб
         pass
 
     def user_auth(self):
