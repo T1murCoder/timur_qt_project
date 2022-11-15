@@ -65,8 +65,6 @@ class Login(QMainWindow, Ui_MainWindow):
             print(ex)
 
 
-
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = Login()
