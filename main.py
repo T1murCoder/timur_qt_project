@@ -23,6 +23,7 @@ class Market(QMainWindow, Ui_MainWindow):
         self.btn_search.clicked.connect(self.search_goods)
         self.btn_add_to_basket.clicked.connect(self.add_to_basket)
         self.btn_reset.clicked.connect(self.reset_basket)
+        self.btn_delete.clicked.connect(self.delete_from_basket)
 
     def set_market_table(self, query):
         try:
@@ -55,7 +56,6 @@ class Market(QMainWindow, Ui_MainWindow):
     def add_to_basket(self):
         # TODO: Сделать добавление в дб
         rows = list(set([i.row() for i in self.tableWidget_market.selectedItems()]))
-        ids = [self.tableWidget_market.item(i, 0).text() for i in rows]
         for i in rows:
             self.basket.append([self.tableWidget_market.item(i, 0).text(),
                                 self.tableWidget_market.item(i, 1).text(),
@@ -81,7 +81,14 @@ class Market(QMainWindow, Ui_MainWindow):
         self.set_basket_table()
 
     def delete_from_basket(self):
-        pass
+        try:
+            rows = list(set([i.row() for i in self.tableWidget_basket.selectedItems()]))
+            selected_items = [self.basket[i] for i in rows]
+            for elem in selected_items:
+                self.basket.remove(elem)
+            self.set_basket_table()
+        except Exception as ex:
+            print(ex)
 
     def order_goods(self):
         pass
