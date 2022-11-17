@@ -55,7 +55,7 @@ class Login(QMainWindow, Ui_MainWindow):
             cur = con.cursor()
             result = cur.execute("""SELECT * FROM users WHERE username = ?""", (username,)).fetchall()
             if not result:
-                cur.execute('''INSERT INTO users VALUES (?, ?)''', (username, encrypt(password)))
+                cur.execute('''INSERT INTO users(username, password) VALUES (?, ?)''', (username, encrypt(password)))
                 con.commit()
                 self.lbl_answer.setText('Успешная регистрация!')
             else:
