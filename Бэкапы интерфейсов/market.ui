@@ -142,6 +142,9 @@
         <height>351</height>
        </rect>
       </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
      </widget>
      <widget class="QLabel" name="label_2">
       <property name="geometry">
