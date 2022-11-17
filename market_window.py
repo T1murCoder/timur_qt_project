@@ -90,6 +90,9 @@ class Market(QMainWindow, Ui_MainWindow):
         except Exception as ex:
             print(ex)
 
+    def calculate_total_from_basket(self):
+        pass
+
     def order_goods(self):
         pass
 
@@ -102,7 +105,7 @@ class Market(QMainWindow, Ui_MainWindow):
         pass
 
     def user_auth(self):
-        # TODO: Распозновать пользователя при входе
+        # TODO: Распозновать пользователя при входе и писать имя в профиле
         pass
 
 
