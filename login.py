@@ -3,6 +3,7 @@ import sys
 import sqlite3
 from login_ui import Ui_MainWindow
 from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QPushButton, QLineEdit
+from market import Market
 
 
 def encrypt(string):
@@ -37,12 +38,13 @@ class Login(QMainWindow, Ui_MainWindow):
         WHERE username = ? AND password = ?""", (username, encrypt(password))).fetchall()
         if result:
             self.lbl_answer.setText(f'Успешный вход под логином: {username}')
-            # TODO: Добавить корзину для пользователя
-            # TODO: Сделать открытие основного окна приложения после успешной аутентификации
+            self.market_form = Market(user_id=result[0][0])
+            self.close()
+            self.market_form.show()
+            # TODO: Добавить корзину для пользователя в ДБ ?
         else:
             self.lbl_answer.setText('Неверный Логин или Пароль')
         con.close()
-    # TODO: Сделать шифрование пароля при записи в дб (не забыть добавить в login() чтобы всё работало)
 
     def register(self):
         try:

@@ -7,10 +7,12 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QPushButton, QLin
 
 
 class Market(QMainWindow, Ui_MainWindow):
-    def __init__(self):
+    def __init__(self, user_id=2):
         super().__init__()
         self.setupUi(self)
         self.connection = sqlite3.connect('market_db.db')
+        self.user_connection = sqlite3.connect('users_db.db')
+        self.current_user_id = user_id
         self.current_category = '*'
         self.basket = []
         self.initUI()
@@ -20,6 +22,7 @@ class Market(QMainWindow, Ui_MainWindow):
         self.set_market_table("SELECT name, price, category, available FROM goods")
         self.set_basket_table()
         self.set_combo_categories()
+        self.user_auth()
         self.btn_search.clicked.connect(self.search_goods)
         self.btn_add_to_basket.clicked.connect(self.add_to_basket)
         self.btn_reset.clicked.connect(self.reset_basket)
@@ -81,6 +84,7 @@ class Market(QMainWindow, Ui_MainWindow):
         self.set_basket_table()
 
     def delete_from_basket(self):
+        # TODO: Подключить к дб
         try:
             rows = list(set([i.row() for i in self.tableWidget_basket.selectedItems()]))
             selected_items = [self.basket[i] for i in rows]
@@ -106,7 +110,14 @@ class Market(QMainWindow, Ui_MainWindow):
 
     def user_auth(self):
         # TODO: Распозновать пользователя при входе и писать имя в профиле
-        pass
+        cur = self.user_connection.cursor()
+        result = cur.execute(f"""SELECT username, card_number, phone_number FROM users WHERE id ='{self.current_user_id}'""").fetchall()
+        username, card_number, phone_number = result[0]
+        self.lineEdit_name.setText(username)
+        if card_number:
+            self.lineEdit_card.setText(card_number)
+        if phone_number:
+            self.lineEdit_phone.setText(phone_number)
 
 
 
