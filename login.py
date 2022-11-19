@@ -41,6 +41,7 @@ class Login(QMainWindow, Ui_MainWindow):
             self.market_form = Market(user_id=result[0][0])
             self.close()
             self.market_form.show()
+            # TODO: Сделать приложение для админа
             # TODO: Добавить корзину для пользователя в ДБ ?
         else:
             self.lbl_answer.setText('Неверный Логин или Пароль')
