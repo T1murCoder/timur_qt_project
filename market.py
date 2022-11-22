@@ -27,6 +27,7 @@ class Market(QMainWindow, Ui_MainWindow):
         self.btn_add_to_basket.clicked.connect(self.add_to_basket)
         self.btn_reset.clicked.connect(self.reset_basket)
         self.btn_delete.clicked.connect(self.delete_from_basket)
+        self.btn_link_card.clicked.connect(self.write_basket_to_db)
 
     def set_market_table(self, query):
         try:
@@ -78,6 +79,14 @@ class Market(QMainWindow, Ui_MainWindow):
                 self.tableWidget_basket.setItem(
                     i, j, QTableWidgetItem(str(elem)))
 
+    def write_basket_to_db(self):
+        print(self.basket)
+        cur = self.connection.cursor()
+        ids = [cur.execute(f"""SELECT id FROM goods WHERE name='{elem[0]}'""").fetchone()[0] for elem in self.basket]
+        cur = self.user_connection.cursor()
+        ids = ', '.join(ids)
+        cur.execute(f"""""")
+
     def reset_basket(self):
         # TODO: Подключить к дб
         self.basket = []
@@ -109,7 +118,7 @@ class Market(QMainWindow, Ui_MainWindow):
         pass
 
     def user_auth(self):
-        # TODO: Распозновать пользователя при входе и писать имя в профиле
+        # TODO: Записывать в self.basket элементы из корзины в БД
         cur = self.user_connection.cursor()
         result = cur.execute(f"""SELECT username, card_number, phone_number FROM users WHERE id ='{self.current_user_id}'""").fetchall()
         username, card_number, phone_number = result[0]
@@ -119,10 +128,7 @@ class Market(QMainWindow, Ui_MainWindow):
         if phone_number:
             self.lineEdit_phone.setText(phone_number)
 
-
-
-
-
+# TODO: Сделать закрытие подключений БД при выходе из приложения
 
 
 if __name__ == '__main__':
