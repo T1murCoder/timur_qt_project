@@ -20,7 +20,6 @@ class Market(QMainWindow, Ui_MainWindow):
     def initUI(self):
         # TODO: Сделать инициализацию пользователя
         self.set_market_table("SELECT name, price, category, available FROM goods")
-        self.set_basket_table()
         self.set_combo_categories()
         self.user_auth()
         self.btn_search.clicked.connect(self.search_goods)
@@ -121,10 +120,16 @@ class Market(QMainWindow, Ui_MainWindow):
         pass
 
     def user_auth(self):
-        # TODO: Записывать в self.basket элементы из корзины в БД
         cur = self.user_connection.cursor()
-        result = cur.execute(f"""SELECT username, card_number, phone_number FROM users WHERE id ='{self.current_user_id}'""").fetchall()
+        result = cur.execute(f"""SELECT username, card_number, phone_number
+        FROM users WHERE id='{self.current_user_id}'""").fetchall()
         username, card_number, phone_number = result[0]
+        ids = cur.execute(f"""SELECT basket FROM users WHERE id='{self.current_user_id}'""").fetchone()[0]
+        if ids:
+            cur = self.connection.cursor()
+            self.basket = [list(cur.execute(f"""SELECT name, price, category, available FROM goods
+            WHERE id='{elem}'""").fetchall()[0]) for elem in ids.split(', ')]
+            self.set_basket_table()
         self.lineEdit_name.setText(username)
         if card_number:
             self.lineEdit_card.setText(card_number)
