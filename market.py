@@ -27,7 +27,6 @@ class Market(QMainWindow, Ui_MainWindow):
         self.btn_add_to_basket.clicked.connect(self.add_to_basket)
         self.btn_reset.clicked.connect(self.reset_basket)
         self.btn_delete.clicked.connect(self.delete_from_basket)
-        self.btn_link_card.clicked.connect(self.write_basket_to_db)
 
     def set_market_table(self, query):
         try:
@@ -58,13 +57,13 @@ class Market(QMainWindow, Ui_MainWindow):
         self.set_market_table(query)
 
     def add_to_basket(self):
-        # TODO: Сделать добавление в дб
         rows = list(set([i.row() for i in self.tableWidget_market.selectedItems()]))
         for i in rows:
             self.basket.append([self.tableWidget_market.item(i, 0).text(),
                                 self.tableWidget_market.item(i, 1).text(),
                                 self.tableWidget_market.item(i, 2).text(),
                                 self.tableWidget_market.item(i, 3).text()])
+        self.write_basket_to_db()
         self.set_basket_table()
 
     def set_basket_table(self):
@@ -80,25 +79,29 @@ class Market(QMainWindow, Ui_MainWindow):
                     i, j, QTableWidgetItem(str(elem)))
 
     def write_basket_to_db(self):
-        print(self.basket)
-        cur = self.connection.cursor()
-        ids = [cur.execute(f"""SELECT id FROM goods WHERE name='{elem[0]}'""").fetchone()[0] for elem in self.basket]
-        cur = self.user_connection.cursor()
-        ids = ', '.join(ids)
-        cur.execute(f"""""")
+        try:
+            cur = self.connection.cursor()
+            ids = [cur.execute(f"SELECT id FROM goods WHERE name='{elem[0]}'").fetchone()[0] for elem in self.basket]
+            ids = [str(elem) for elem in ids]
+            cur = self.user_connection.cursor()
+            ids = ', '.join(ids)
+            cur.execute(f"""UPDATE users SET basket = '{ids}' WHERE id='{self.current_user_id}'""")
+            self.user_connection.commit()
+        except Exception as ex:
+            print(ex)
 
     def reset_basket(self):
-        # TODO: Подключить к дб
         self.basket = []
+        self.write_basket_to_db()
         self.set_basket_table()
 
     def delete_from_basket(self):
-        # TODO: Подключить к дб
         try:
             rows = list(set([i.row() for i in self.tableWidget_basket.selectedItems()]))
             selected_items = [self.basket[i] for i in rows]
             for elem in selected_items:
                 self.basket.remove(elem)
+            self.write_basket_to_db()
             self.set_basket_table()
         except Exception as ex:
             print(ex)
