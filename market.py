@@ -13,14 +13,14 @@ class Market(QMainWindow, Ui_MainWindow):
         self.connection = sqlite3.connect('market_db.db')
         self.user_connection = sqlite3.connect('users_db.db')
         self.current_user_id = user_id
-        self.current_category = '*'
         self.basket = []
         self.initUI()
 
     def initUI(self):
         # TODO: Сделать инициализацию пользователя
-        self.set_market_table("SELECT name, price, category, available FROM goods")
         self.set_combo_categories()
+        self.search_goods()
+        # self.set_market_table("SELECT name, price, category, available FROM goods")
         self.user_auth()
         self.btn_search.clicked.connect(self.search_goods)
         self.btn_add_to_basket.clicked.connect(self.add_to_basket)
@@ -49,10 +49,16 @@ class Market(QMainWindow, Ui_MainWindow):
 
     def search_goods(self):
         if self.cmb_categories.currentText() == 'Все':
-            query = """SELECT name, price, category, available FROM goods"""
+            query = """SELECT goods.name as GoodName,
+                    goods.price, categories.name as CategoryName,
+                    goods.available FROM goods
+                    INNER JOIN categories ON categories.id = goods.category"""
         else:
-            query = f"""SELECT name, price, category, available FROM goods
-            WHERE category=(SELECT id FROM categories WHERE name='{self.cmb_categories.currentText()}')"""
+            query = f"""SELECT goods.name as GoodName,
+                        goods.price, categories.name as CategoryName,
+                        goods.available FROM goods
+                        INNER JOIN categories ON categories.id = goods.category
+                        WHERE categoryName='{self.cmb_categories.currentText()}'"""
         self.set_market_table(query)
 
     def add_to_basket(self):
