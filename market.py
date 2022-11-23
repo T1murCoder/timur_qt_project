@@ -19,7 +19,6 @@ class Market(QMainWindow, Ui_MainWindow):
         # TODO: Сделать инициализацию пользователя
         self.set_combo_categories()
         self.search_goods()
-        # self.set_market_table("SELECT name, price, category, available FROM goods")
         self.user_auth()
         self.btn_search.clicked.connect(self.search_goods)
         self.btn_add_to_basket.clicked.connect(self.add_to_basket)
@@ -144,6 +143,10 @@ class Market(QMainWindow, Ui_MainWindow):
             self.lineEdit_card.setText(card_number)
         if phone_number:
             self.lineEdit_phone.setText(phone_number)
+
+    def closeEvent(self, event):
+        self.connection.close()
+        self.user_connection.close()
 
 # TODO: Сделать закрытие подключений БД при выходе из приложения
 
