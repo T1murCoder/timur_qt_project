@@ -2,7 +2,6 @@ import sys
 
 import sqlite3
 from market_ui import Ui_MainWindow
-from PyQt5.QtSql import QSqlDatabase, QSqlTableModel
 from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QPushButton, QLineEdit, QTableView, QTableWidgetItem
 
 
