@@ -133,8 +133,12 @@ class Market(QMainWindow, Ui_MainWindow):
         ids = cur.execute(f"""SELECT basket FROM users WHERE id='{self.current_user_id}'""").fetchone()[0]
         if ids:
             cur = self.connection.cursor()
-            self.basket = [list(cur.execute(f"""SELECT name, price, category, available FROM goods
-            WHERE id='{elem}'""").fetchall()[0]) for elem in ids.split(', ')]
+            self.basket = [list(cur.execute(f"""SELECT goods.name,
+                                                goods.price,
+                                                categories.name as CategoryName,
+                                                goods.available FROM goods
+                                                INNER JOIN categories ON categories.id = goods.category
+                                                WHERE goods.id='{elem}'""").fetchall()[0]) for elem in ids.split(', ')]
             self.set_basket_table()
         self.lineEdit_name.setText(username)
         if card_number:
