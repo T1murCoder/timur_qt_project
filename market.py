@@ -3,6 +3,7 @@ import sys
 import sqlite3
 from market_ui import Ui_MainWindow
 from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QPushButton, QLineEdit, QTableView, QTableWidgetItem
+from PyQt5.QtWidgets import QInputDialog
 
 
 class Market(QMainWindow, Ui_MainWindow):
@@ -24,6 +25,7 @@ class Market(QMainWindow, Ui_MainWindow):
         self.btn_add_to_basket.clicked.connect(self.add_to_basket)
         self.btn_reset.clicked.connect(self.reset_basket)
         self.btn_delete.clicked.connect(self.delete_from_basket)
+        self.btn_link_card.clicked.connect(self.link_bank_card)
 
     def set_market_table(self, query):
         try:
@@ -121,7 +123,20 @@ class Market(QMainWindow, Ui_MainWindow):
 
     def link_bank_card(self):
         # TODO: Записывать в дб
-        pass
+        try:
+            card, ok_pressed = QInputDialog().getText(self, "Введите номер карты", "Введите 16 символов")
+            if ok_pressed:
+                if len(card) != 16:
+                    card, ok_pressed = QInputDialog().getText(self, "Введите номер карты", "Введите 16 символов")
+                    while len(card) != 16:
+                        if ok_pressed is False:
+                            break
+                        card, ok_pressed = QInputDialog().getText(self, "Введите номер карты", "Введите 16 символов")
+                if len(card) == 16:
+                    self.lineEdit_card.setText(card)
+                    # TODO: Сделать алгоритм Луна
+        except Exception as ex:
+            print(ex)
 
     def link_phone_number(self):
         # TODO: Записывать в дб
