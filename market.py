@@ -27,7 +27,6 @@ class Market(QMainWindow, Ui_MainWindow):
 
     def set_market_table(self, query):
         try:
-            # TODO: Сделать чтобы писалось название категории а не её id
             self.tableWidget_market.setColumnCount(4)
             self.tableWidget_market.setRowCount(0)
             self.tableWidget_market.setHorizontalHeaderLabels(['Имя', 'Цена', 'Категория', 'Наличие'])
@@ -80,6 +79,7 @@ class Market(QMainWindow, Ui_MainWindow):
             for j, elem in enumerate(row):
                 self.tableWidget_basket.setItem(
                     i, j, QTableWidgetItem(str(elem)))
+        self.calculate_total_from_basket()
 
     def write_basket_to_db(self):
         try:
@@ -110,9 +110,13 @@ class Market(QMainWindow, Ui_MainWindow):
             print(ex)
 
     def calculate_total_from_basket(self):
-        pass
+        total = 0
+        for elem in self.basket:
+            total += int(elem[1])
+        self.lineEdit_total.setText(str(total))
 
     def order_goods(self):
+        # TODO: Сделать оформление заказов
         pass
 
     def link_bank_card(self):
@@ -147,8 +151,6 @@ class Market(QMainWindow, Ui_MainWindow):
     def closeEvent(self, event):
         self.connection.close()
         self.user_connection.close()
-
-# TODO: Сделать закрытие подключений БД при выходе из приложения
 
 
 if __name__ == '__main__':
