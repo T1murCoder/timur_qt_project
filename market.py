@@ -124,19 +124,31 @@ class Market(QMainWindow, Ui_MainWindow):
     def link_bank_card(self):
         # TODO: Записывать в дб
         try:
-            card, ok_pressed = QInputDialog().getText(self, "Введите номер карты", "Введите 16 символов")
-            if ok_pressed:
-                if len(card) != 16:
-                    card, ok_pressed = QInputDialog().getText(self, "Введите номер карты", "Введите 16 символов")
-                    while len(card) != 16:
-                        if ok_pressed is False:
-                            break
-                        card, ok_pressed = QInputDialog().getText(self, "Введите номер карты", "Введите 16 символов")
-                if len(card) == 16:
-                    self.lineEdit_card.setText(card)
-                    # TODO: Сделать алгоритм Луна
+            card = self.get_card()
+            print(card)
         except Exception as ex:
             print(ex)
+
+    def get_card(self):
+        card, ok_pressed = QInputDialog.getText(self, "Введите номер карты", "Введите 16 цифр")
+
+        if ok_pressed:
+            if not card.isdigit():
+                return "Введены буквы"
+            if len(card) != 16:
+                return "Неверное количество символов"
+
+
+    def luhn_algorithm(self, card):
+        odd = map(lambda x: self.double(int(x)), card[::2])
+        even = map(int, card[1::2])
+        return (sum(odd) + sum(even)) % 10 == 0
+
+    def double(self, x):
+        res = x * 2
+        if res > 9:
+            res = res - 9
+        return res
 
     def link_phone_number(self):
         # TODO: Записывать в дб
