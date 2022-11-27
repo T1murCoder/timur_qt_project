@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'market.ui'
+# Form implementation generated from reading ui file 'market_ui.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -91,27 +91,35 @@ class Ui_MainWindow(object):
         self.label_5.setGeometry(QtCore.QRect(30, 70, 101, 16))
         self.label_5.setObjectName("label_5")
         self.lineEdit_card = QtWidgets.QLineEdit(self.tab_profile)
-        self.lineEdit_card.setGeometry(QtCore.QRect(140, 70, 113, 20))
+        self.lineEdit_card.setGeometry(QtCore.QRect(140, 70, 133, 20))
         self.lineEdit_card.setReadOnly(True)
         self.lineEdit_card.setObjectName("lineEdit_card")
         self.btn_link_card = QtWidgets.QPushButton(self.tab_profile)
-        self.btn_link_card.setGeometry(QtCore.QRect(270, 70, 75, 23))
+        self.btn_link_card.setGeometry(QtCore.QRect(290, 70, 75, 23))
         self.btn_link_card.setObjectName("btn_link_card")
         self.label_6 = QtWidgets.QLabel(self.tab_profile)
         self.label_6.setGeometry(QtCore.QRect(30, 110, 91, 16))
         self.label_6.setObjectName("label_6")
         self.lineEdit_phone = QtWidgets.QLineEdit(self.tab_profile)
-        self.lineEdit_phone.setGeometry(QtCore.QRect(140, 110, 113, 20))
+        self.lineEdit_phone.setGeometry(QtCore.QRect(140, 110, 133, 20))
         self.lineEdit_phone.setReadOnly(True)
         self.lineEdit_phone.setObjectName("lineEdit_phone")
         self.btn_link_phone = QtWidgets.QPushButton(self.tab_profile)
-        self.btn_link_phone.setGeometry(QtCore.QRect(270, 110, 75, 23))
+        self.btn_link_phone.setGeometry(QtCore.QRect(290, 110, 75, 23))
         self.btn_link_phone.setObjectName("btn_link_phone")
+        self.lbl_card_error = QtWidgets.QLabel(self.tab_profile)
+        self.lbl_card_error.setGeometry(QtCore.QRect(380, 72, 351, 16))
+        self.lbl_card_error.setText("")
+        self.lbl_card_error.setObjectName("lbl_card_error")
+        self.label_8 = QtWidgets.QLabel(self.tab_profile)
+        self.label_8.setGeometry(QtCore.QRect(380, 112, 351, 16))
+        self.label_8.setText("")
+        self.label_8.setObjectName("label_8")
         self.tabWidget.addTab(self.tab_profile, "")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
