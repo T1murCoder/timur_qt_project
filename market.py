@@ -127,7 +127,9 @@ class Market(QMainWindow, Ui_MainWindow):
             if card.isdigit():
                 self.lineEdit_card.setText(card)
                 self.lbl_card_error.setText("")
-                # TODO: Записывать в дб
+                cur = self.user_connection.cursor()
+                cur.execute(f"""UPDATE users SET card_number = '{card}' WHERE id ='{self.current_user_id}'""")
+                self.user_connection.commit()
             else:
                 self.lbl_card_error.setText(card)
         except Exception as ex:
@@ -181,9 +183,9 @@ class Market(QMainWindow, Ui_MainWindow):
             self.set_basket_table()
         self.lineEdit_name.setText(username)
         if card_number:
-            self.lineEdit_card.setText(card_number)
+            self.lineEdit_card.setText(str(card_number))
         if phone_number:
-            self.lineEdit_phone.setText(phone_number)
+            self.lineEdit_phone.setText(str(phone_number))
 
     def closeEvent(self, event):
         self.connection.close()
