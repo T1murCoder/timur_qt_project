@@ -153,16 +153,15 @@ class Market(QMainWindow, Ui_MainWindow):
             return ''
 
     def luhn_algorithm(self, card):
-        # TODO: Стоит ли объявлять внутри функцию double? Или может вовсе объявить данный метод внутри get_card?
-        odd = map(lambda x: self.double(int(x)), card[::2])
+        def double(x):
+            res = x * 2
+            if res > 9:
+                res = res - 9
+            return res
+
+        odd = map(lambda x: double(int(x)), card[::2])
         even = map(int, card[1::2])
         return (sum(odd) + sum(even)) % 10 == 0
-
-    def double(self, x):
-        res = x * 2
-        if res > 9:
-            res = res - 9
-        return res
 
     def link_phone_number(self):
         # TODO: Записывать в дб
