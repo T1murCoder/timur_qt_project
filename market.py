@@ -26,6 +26,7 @@ class Market(QMainWindow, Ui_MainWindow):
         self.btn_reset.clicked.connect(self.reset_basket)
         self.btn_delete.clicked.connect(self.delete_from_basket)
         self.btn_link_card.clicked.connect(self.link_bank_card)
+        self.btn_link_phone.clicked.connect(self.link_phone_number)
 
     def set_market_table(self, query):
         try:
@@ -152,6 +153,7 @@ class Market(QMainWindow, Ui_MainWindow):
             return ''
 
     def luhn_algorithm(self, card):
+        # TODO: Стоит ли объявлять внутри функцию double? Или может вовсе объявить данный метод внутри get_card?
         odd = map(lambda x: self.double(int(x)), card[::2])
         even = map(int, card[1::2])
         return (sum(odd) + sum(even)) % 10 == 0
@@ -164,6 +166,13 @@ class Market(QMainWindow, Ui_MainWindow):
 
     def link_phone_number(self):
         # TODO: Записывать в дб
+        phone, ok_pressed = QInputDialog.getText(self, "Введите номер телефона", "Введите  цифр")
+
+        if ok_pressed:
+            print(phone)
+
+    def check_phone(self, phone):
+        # TODO: Написать функцию для проверки номера телефона
         pass
 
     def user_auth(self):
