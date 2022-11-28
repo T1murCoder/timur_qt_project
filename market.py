@@ -171,6 +171,9 @@ class Market(QMainWindow, Ui_MainWindow):
             phone = self.check_phone(phone)
             if phone[1:].isdigit():
                 self.lineEdit_phone.setText(phone)
+                cur = self.user_connection.cursor()
+                cur.execute(f"""UPDATE users SET phone_number = '{phone}' WHERE id ='{self.current_user_id}'""")
+                self.user_connection.commit()
             else:
                 self.lbl_phone_error.setText(phone)
 
@@ -196,6 +199,12 @@ class Market(QMainWindow, Ui_MainWindow):
         if not phone[1:].isdigit() or not len(phone[1:]) == 11:
             return 'Неверная длина'
         return phone
+
+    def delete_bank_card(self):
+        pass
+
+    def delete_phone_number(self):
+        pass
 
     def user_auth(self):
         cur = self.user_connection.cursor()
