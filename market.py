@@ -169,11 +169,34 @@ class Market(QMainWindow, Ui_MainWindow):
         phone, ok_pressed = QInputDialog.getText(self, "Введите номер телефона", "Введите  цифр")
 
         if ok_pressed:
-            print(phone)
+            phone = self.check_phone(phone)
+            if phone[1:].isdigit():
+                self.lineEdit_phone.setText(phone)
+            else:
+                self.lbl_phone_error.setText(phone)
 
     def check_phone(self, phone):
-        # TODO: Написать функцию для проверки номера телефона
-        pass
+        if phone.find('+7') != 0 and phone.find('8') != 0:
+            return 'Неверный код страны'
+        if phone.find('8') == 0:
+            phone = '+7' + phone[1:]
+        s1 = phone.find('(')
+        s2 = phone.find(')')
+        if s1 > -1:
+            if s2 < s1 or phone.count('(') > 1 or phone.count(')') > 1:
+                return 'Неверный формат'
+        else:
+            if s2 > -1:
+                return 'error'
+        phone = phone.replace('(', '')
+        phone = phone.replace(')', '')
+        if not all(phone.split('-')):
+            return 'Неверный формат'
+        else:
+            phone = phone.replace('-', '')
+        if not phone[1:].isdigit() or not len(phone[1:]) == 11:
+            return 'Неверная длина'
+        return phone
 
     def user_auth(self):
         cur = self.user_connection.cursor()
