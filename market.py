@@ -27,6 +27,8 @@ class Market(QMainWindow, Ui_MainWindow):
         self.btn_delete.clicked.connect(self.delete_from_basket)
         self.btn_link_card.clicked.connect(self.link_bank_card)
         self.btn_link_phone.clicked.connect(self.link_phone_number)
+        self.btn_delete_card.clicked.connect(self.delete_bank_card)
+        self.btn_delete_phone.clicked.connect(self.delete_phone_number)
 
     def set_market_table(self, query):
         try:
@@ -178,6 +180,9 @@ class Market(QMainWindow, Ui_MainWindow):
                 self.lbl_phone_error.setText(phone)
 
     def check_phone(self, phone):
+        if phone == '':
+            return 'Данные не введены'
+        phone = phone.replace(' ', '')
         if phone.find('+7') != 0 and phone.find('8') != 0:
             return 'Неверный код страны'
         if phone.find('8') == 0:
@@ -201,15 +206,21 @@ class Market(QMainWindow, Ui_MainWindow):
         return phone
 
     def delete_bank_card(self):
-        pass
+        self.lineEdit_card.setText('')
+        cur = self.user_connection.cursor()
+        cur.execute(f"""UPDATE users SET card_number = '' WHERE id = '{self.current_user_id}'""")
+        self.user_connection.commit()
 
     def delete_phone_number(self):
-        pass
+        self.lineEdit_phone.setText('')
+        cur = self.user_connection.cursor()
+        cur.execute(f"""UPDATE users SET phone_number = '' WHERE id = '{self.current_user_id}'""")
+        self.user_connection.commit()
 
     def user_auth(self):
         cur = self.user_connection.cursor()
         result = cur.execute(f"""SELECT username, card_number, phone_number
-        FROM users WHERE id='{self.current_user_id}'""").fetchall()
+                                FROM users WHERE id='{self.current_user_id}'""").fetchall()
         username, card_number, phone_number = result[0]
         ids = cur.execute(f"""SELECT basket FROM users WHERE id='{self.current_user_id}'""").fetchone()[0]
         if ids:
