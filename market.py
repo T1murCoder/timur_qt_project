@@ -1,17 +1,17 @@
 import sys
 
 import sqlite3
-from market_ui_without_style import Ui_MainWindow
+from market_ui import Ui_MainWindow
+from StyleSheet import styleSheet
 from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QPushButton, QLineEdit, QTableView, QTableWidgetItem
 from PyQt5.QtWidgets import QInputDialog
-import qdarkstyle
 
 
 class Market(QMainWindow, Ui_MainWindow):
     def __init__(self, user_id=2):
         super().__init__()
         self.setupUi(self)
-        self.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
+        self.setStyleSheet(styleSheet)
         self.connection = sqlite3.connect('databases/market_db.db')
         self.user_connection = sqlite3.connect('databases/users_db.db')
         self.current_user_id = user_id
@@ -19,7 +19,6 @@ class Market(QMainWindow, Ui_MainWindow):
         self.initUI()
 
     def initUI(self):
-        # TODO: Сделать инициализацию пользователя
         self.set_combo_categories()
         self.search_goods()
         self.user_auth()
@@ -143,6 +142,17 @@ class Market(QMainWindow, Ui_MainWindow):
     def get_card(self):
         card, ok_pressed = QInputDialog.getText(self, "Введите номер карты", "Введите 16 цифр")
 
+        def luhn_algorithm(card):
+            def double(x):
+                res = x * 2
+                if res > 9:
+                    res = res - 9
+                return res
+
+            odd = map(lambda x: double(int(x)), card[::2])
+            even = map(int, card[1::2])
+            return (sum(odd) + sum(even)) % 10 == 0
+
         if ok_pressed:
             if card == '':
                 return "Данные не введены"
@@ -150,29 +160,44 @@ class Market(QMainWindow, Ui_MainWindow):
                 return "Введены буквы"
             elif len(card) != 16:
                 return "Неверное количество символов"
-            elif not self.luhn_algorithm(card):
+            elif not luhn_algorithm(card):
                 return "Неверный номер карты"
             return card
         else:
             return ''
 
-    def luhn_algorithm(self, card):
-        def double(x):
-            res = x * 2
-            if res > 9:
-                res = res - 9
-            return res
-
-        odd = map(lambda x: double(int(x)), card[::2])
-        even = map(int, card[1::2])
-        return (sum(odd) + sum(even)) % 10 == 0
-
     def link_phone_number(self):
         # TODO: Записывать в дб
         phone, ok_pressed = QInputDialog.getText(self, "Введите номер телефона", "Введите  цифр")
 
+        def check_phone(phone):
+            if phone == '':
+                return 'Данные не введены'
+            phone = phone.replace(' ', '')
+            if phone.find('+7') != 0 and phone.find('8') != 0:
+                return 'Неверный код страны'
+            if phone.find('8') == 0:
+                phone = '+7' + phone[1:]
+            s1 = phone.find('(')
+            s2 = phone.find(')')
+            if s1 > -1:
+                if s2 < s1 or phone.count('(') > 1 or phone.count(')') > 1:
+                    return 'Неверный формат'
+            else:
+                if s2 > -1:
+                    return 'Неверный формат'
+            phone = phone.replace('(', '')
+            phone = phone.replace(')', '')
+            if not all(phone.split('-')):
+                return 'Неверный формат'
+            else:
+                phone = phone.replace('-', '')
+            if not phone[1:].isdigit() or not len(phone[1:]) == 11:
+                return 'Неверная длина'
+            return phone
+
         if ok_pressed:
-            phone = self.check_phone(phone)
+            phone = check_phone(phone)
             if phone[1:].isdigit():
                 self.lineEdit_phone.setText(phone)
                 cur = self.user_connection.cursor()
@@ -180,32 +205,6 @@ class Market(QMainWindow, Ui_MainWindow):
                 self.user_connection.commit()
             else:
                 self.lbl_phone_error.setText(phone)
-
-    def check_phone(self, phone):
-        if phone == '':
-            return 'Данные не введены'
-        phone = phone.replace(' ', '')
-        if phone.find('+7') != 0 and phone.find('8') != 0:
-            return 'Неверный код страны'
-        if phone.find('8') == 0:
-            phone = '+7' + phone[1:]
-        s1 = phone.find('(')
-        s2 = phone.find(')')
-        if s1 > -1:
-            if s2 < s1 or phone.count('(') > 1 or phone.count(')') > 1:
-                return 'Неверный формат'
-        else:
-            if s2 > -1:
-                return 'error'
-        phone = phone.replace('(', '')
-        phone = phone.replace(')', '')
-        if not all(phone.split('-')):
-            return 'Неверный формат'
-        else:
-            phone = phone.replace('-', '')
-        if not phone[1:].isdigit() or not len(phone[1:]) == 11:
-            return 'Неверная длина'
-        return phone
 
     def delete_bank_card(self):
         self.lineEdit_card.setText('')
@@ -220,6 +219,7 @@ class Market(QMainWindow, Ui_MainWindow):
         self.user_connection.commit()
 
     def user_auth(self):
+        # TODO: Добавить e-mail
         cur = self.user_connection.cursor()
         result = cur.execute(f"""SELECT username, card_number, phone_number
                                 FROM users WHERE id='{self.current_user_id}'""").fetchall()
