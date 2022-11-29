@@ -12,8 +12,8 @@ class Market(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
-        self.connection = sqlite3.connect('market_db.db')
-        self.user_connection = sqlite3.connect('users_db.db')
+        self.connection = sqlite3.connect('databases/market_db.db')
+        self.user_connection = sqlite3.connect('databases/users_db.db')
         self.current_user_id = user_id
         self.basket = []
         self.initUI()

@@ -32,7 +32,7 @@ class Login(QMainWindow, Ui_MainWindow):
         if not password or not username:
             self.lbl_answer.setText('Данные не введены')
             return
-        con = sqlite3.connect('users_db.db')
+        con = sqlite3.connect('databases/users_db.db')
         cur = con.cursor()
         result = cur.execute("""SELECT * FROM users
         WHERE username = ? AND password = ?""", (username, encrypt(password))).fetchall()
@@ -54,7 +54,7 @@ class Login(QMainWindow, Ui_MainWindow):
             if not password or not username:
                 self.lbl_answer.setText('Данные не введены')
                 return
-            con = sqlite3.connect('users_db.db')
+            con = sqlite3.connect('databases/users_db.db')
             cur = con.cursor()
             result = cur.execute("""SELECT * FROM users WHERE username = ?""", (username,)).fetchall()
             if not result:
