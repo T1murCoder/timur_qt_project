@@ -1,15 +1,17 @@
 import sys
 
 import sqlite3
-from market_ui import Ui_MainWindow
+from market_ui_without_style import Ui_MainWindow
 from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QPushButton, QLineEdit, QTableView, QTableWidgetItem
 from PyQt5.QtWidgets import QInputDialog
+import qdarkstyle
 
 
 class Market(QMainWindow, Ui_MainWindow):
     def __init__(self, user_id=2):
         super().__init__()
         self.setupUi(self)
+        self.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
         self.connection = sqlite3.connect('market_db.db')
         self.user_connection = sqlite3.connect('users_db.db')
         self.current_user_id = user_id
