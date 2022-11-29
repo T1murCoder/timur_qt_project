@@ -25,9 +25,6 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <property name="styleSheet">
-   <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(64, 64, 64, 255), stop:1 rgba(40, 40, 40, 255));</string>
-  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
     <property name="enabled">
@@ -41,25 +38,8 @@
       <height>600</height>
      </rect>
     </property>
-    <property name="layoutDirection">
-     <enum>Qt::LeftToRight</enum>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(64, 64, 64, 255), stop:1 rgba(40, 40, 40, 255));
-color: rgb(255, 255, 255);
-</string>
-    </property>
-    <property name="tabPosition">
-     <enum>QTabWidget::North</enum>
-    </property>
-    <property name="tabShape">
-     <enum>QTabWidget::Triangular</enum>
-    </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <property name="documentMode">
      <bool>false</bool>
@@ -70,14 +50,7 @@ color: rgb(255, 255, 255);
     <property name="movable">
      <bool>false</bool>
     </property>
-    <property name="tabBarAutoHide">
-     <bool>false</bool>
-    </property>
     <widget class="QWidget" name="tab_market">
-     <attribute name="icon">
-      <iconset>
-       <normaloff>../../../PycharmProjects/Защита проекта QT/icons/shop_icon_white.png</normaloff>../../../PycharmProjects/Защита проекта QT/icons/shop_icon_white.png</iconset>
-     </attribute>
      <attribute name="title">
       <string>Магазин</string>
      </attribute>
@@ -90,16 +63,8 @@ color: rgb(255, 255, 255);
         <height>23</height>
        </rect>
       </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(136, 153, 166);
-</string>
-      </property>
       <property name="text">
        <string>Поиск</string>
-      </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>../../../PycharmProjects/Защита проекта QT/icons/search_icon.png</normaloff>../../../PycharmProjects/Защита проекта QT/icons/search_icon.png</iconset>
       </property>
      </widget>
      <widget class="QComboBox" name="cmb_categories">
@@ -113,9 +78,6 @@ color: rgb(255, 255, 255);
         <width>161</width>
         <height>22</height>
        </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
       </property>
      </widget>
      <widget class="QTableWidget" name="tableWidget_market">
@@ -149,10 +111,6 @@ color: rgb(255, 255, 255);
         <height>16</height>
        </rect>
       </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);
-background-color: rgba(0, 0, 0, 0);</string>
-      </property>
       <property name="text">
        <string>Категории:</string>
       </property>
@@ -162,27 +120,16 @@ background-color: rgba(0, 0, 0, 0);</string>
        <rect>
         <x>520</x>
         <y>10</y>
-        <width>131</width>
+        <width>111</width>
         <height>23</height>
        </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(136, 153, 166);</string>
       </property>
       <property name="text">
        <string>Добавить в корзину</string>
       </property>
-      <property name="icon">
-       <iconset>
-        <normaloff>../../../PycharmProjects/Защита проекта QT/icons/basket_icon.png</normaloff>../../../PycharmProjects/Защита проекта QT/icons/basket_icon.png</iconset>
-      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_basket">
-     <attribute name="icon">
-      <iconset>
-       <normaloff>../../../PycharmProjects/Защита проекта QT/icons/basket_icon_white.png</normaloff>../../../PycharmProjects/Защита проекта QT/icons/basket_icon_white.png</iconset>
-     </attribute>
      <attribute name="title">
       <string>Корзина</string>
      </attribute>
@@ -208,10 +155,6 @@ background-color: rgba(0, 0, 0, 0);</string>
         <height>16</height>
        </rect>
       </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);
-background-color: rgba(0, 0, 0, 0);</string>
-      </property>
       <property name="text">
        <string>Корзина:</string>
       </property>
@@ -224,9 +167,6 @@ background-color: rgba(0, 0, 0, 0);</string>
         <width>75</width>
         <height>23</height>
        </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(136, 153, 166);</string>
       </property>
       <property name="text">
        <string>Оформить</string>
@@ -241,9 +181,6 @@ background-color: rgba(0, 0, 0, 0);</string>
         <height>23</height>
        </rect>
       </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(136, 153, 166);</string>
-      </property>
       <property name="text">
        <string>Удалить</string>
       </property>
@@ -257,9 +194,6 @@ background-color: rgba(0, 0, 0, 0);</string>
         <height>23</height>
        </rect>
       </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(136, 153, 166);</string>
-      </property>
       <property name="text">
        <string>Сбросить</string>
       </property>
@@ -272,10 +206,6 @@ background-color: rgba(0, 0, 0, 0);</string>
         <width>47</width>
         <height>13</height>
        </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);
-background-color: rgba(0, 0, 0, 0);</string>
       </property>
       <property name="text">
        <string>Итого:</string>
@@ -296,10 +226,6 @@ background-color: rgba(0, 0, 0, 0);</string>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_profile">
-     <attribute name="icon">
-      <iconset>
-       <normaloff>../../../PycharmProjects/Защита проекта QT/icons/account_icon_white.png</normaloff>../../../PycharmProjects/Защита проекта QT/icons/account_icon_white.png</iconset>
-     </attribute>
      <attribute name="title">
       <string>Профиль</string>
      </attribute>
@@ -311,10 +237,6 @@ background-color: rgba(0, 0, 0, 0);</string>
         <width>47</width>
         <height>13</height>
        </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);
-background-color: rgba(0, 0, 0, 0);</string>
       </property>
       <property name="text">
        <string>Имя:</string>
@@ -342,10 +264,6 @@ background-color: rgba(0, 0, 0, 0);</string>
         <height>16</height>
        </rect>
       </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);
-background-color: rgba(0, 0, 0, 0);</string>
-      </property>
       <property name="text">
        <string>Банковская карта:</string>
       </property>
@@ -372,9 +290,6 @@ background-color: rgba(0, 0, 0, 0);</string>
         <height>23</height>
        </rect>
       </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(136, 153, 166);</string>
-      </property>
       <property name="text">
        <string>Привязать</string>
       </property>
@@ -387,10 +302,6 @@ background-color: rgba(0, 0, 0, 0);</string>
         <width>91</width>
         <height>16</height>
        </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);
-background-color: rgba(0, 0, 0, 0);</string>
       </property>
       <property name="text">
        <string>Номер телефона:</string>
@@ -418,9 +329,6 @@ background-color: rgba(0, 0, 0, 0);</string>
         <height>23</height>
        </rect>
       </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(136, 153, 166);</string>
-      </property>
       <property name="text">
        <string>Привязать</string>
       </property>
@@ -433,10 +341,6 @@ background-color: rgba(0, 0, 0, 0);</string>
         <width>211</width>
         <height>16</height>
        </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);
-background-color: rgba(0, 0, 0, 0);</string>
       </property>
       <property name="text">
        <string/>
@@ -451,10 +355,6 @@ background-color: rgba(0, 0, 0, 0);</string>
         <height>16</height>
        </rect>
       </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(255, 255, 255);
-background-color: rgba(0, 0, 0, 0);</string>
-      </property>
       <property name="text">
        <string/>
       </property>
@@ -468,9 +368,6 @@ background-color: rgba(0, 0, 0, 0);</string>
         <height>23</height>
        </rect>
       </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(136, 153, 166);</string>
-      </property>
       <property name="text">
        <string>Удалить</string>
       </property>
@@ -483,9 +380,6 @@ background-color: rgba(0, 0, 0, 0);</string>
         <width>61</width>
         <height>23</height>
        </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(136, 153, 166);</string>
       </property>
       <property name="text">
        <string>Удалить</string>
