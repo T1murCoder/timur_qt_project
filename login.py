@@ -1,8 +1,8 @@
 import sys
 
 import sqlite3
-from login_ui import Ui_MainWindow
-from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QPushButton, QLineEdit
+from interfaces.login_ui import Ui_MainWindow
+from PyQt5.QtWidgets import QMainWindow, QApplication
 from market import Market
 
 

@@ -1,9 +1,9 @@
 import sys
 
 import sqlite3
-from market_ui import Ui_MainWindow
+from interfaces.market_ui import Ui_MainWindow
 from StyleSheet import styleSheet
-from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QPushButton, QLineEdit, QTableView, QTableWidgetItem
+from PyQt5.QtWidgets import QMainWindow, QApplication, QTableWidgetItem
 from PyQt5.QtWidgets import QInputDialog
 
 
@@ -167,7 +167,6 @@ class Market(QMainWindow, Ui_MainWindow):
             return ''
 
     def link_phone_number(self):
-        # TODO: Записывать в дб
         phone, ok_pressed = QInputDialog.getText(self, "Введите номер телефона", "Введите  цифр")
 
         def check_phone(phone):
