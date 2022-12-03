@@ -176,6 +176,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="btn_delete">
+         <property name="text">
+          <string>Удалить</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="btn_save_db">
          <property name="text">
           <string>Сохранить</string>
@@ -190,6 +197,19 @@
         </widget>
        </item>
       </layout>
+     </widget>
+     <widget class="QLabel" name="lbl_market_error">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>500</y>
+        <width>541</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_basket">

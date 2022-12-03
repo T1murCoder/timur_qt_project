@@ -20,6 +20,9 @@ class Admin(QMainWindow, Ui_Admin):
         self.set_combo_categories()
         self.search_goods()
         self.btn_search.clicked.connect(self.search_goods)
+        self.btn_update.clicked.connect(self.update_table)
+        self.btn_add_row.clicked.connect(self.add_row_to_table)
+        #self.btn_save_db.clicked.connect(self.save_table_to_db)
 
     def set_market_table(self, query):
         try:
@@ -55,15 +58,18 @@ class Admin(QMainWindow, Ui_Admin):
         self.set_market_table(query)
 
     def update_table(self):
-        pass
+        self.search_goods()
 
     def save_table_to_db(self):
-        pass
+        self.connection.commit()
 
     def add_row_to_table(self):
-        pass
+        self.tableWidget_market.insertRow(0)
 
     def import_to_csv(self):
+        pass
+
+    def delete_row_from_table(self):
         pass
 
     def user_auth(self):
