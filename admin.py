@@ -1,10 +1,11 @@
 import sys
 
 import sqlite3
+import csv
 from interfaces.admin_ui import Ui_Admin
 from StyleSheet import styleSheet
 from PyQt5.QtWidgets import QMainWindow, QApplication, QTableWidgetItem
-from PyQt5.QtWidgets import QInputDialog
+from PyQt5.QtWidgets import QFileDialog
 
 
 class Admin(QMainWindow, Ui_Admin):
@@ -22,6 +23,7 @@ class Admin(QMainWindow, Ui_Admin):
         self.btn_search.clicked.connect(self.search_goods)
         self.btn_update.clicked.connect(self.update_table)
         self.btn_add_row.clicked.connect(self.add_row_to_table)
+        self.btn_import_to_csv.clicked.connect(self.import_to_csv)
         #self.btn_save_db.clicked.connect(self.save_table_to_db)
 
     def set_market_table(self, query):
@@ -67,7 +69,22 @@ class Admin(QMainWindow, Ui_Admin):
         self.tableWidget_market.insertRow(0)
 
     def import_to_csv(self):
-        pass
+        path, cap = QFileDialog.getSaveFileName(self, 'Save file', 'Записи\\', "Table files (*.csv)")
+
+        with open(path, 'w', encoding='utf-8', newline='') as csvfile:
+            writer = csv.writer(
+                csvfile, delimiter=';', quotechar='"',
+                quoting=csv.QUOTE_MINIMAL)
+            writer.writerow(
+                [self.tableWidget_market.horizontalHeaderItem(i).text()
+                 for i in range(self.tableWidget_market.columnCount())])
+            for i in range(self.tableWidget_market.rowCount()):
+                row = []
+                for j in range(self.tableWidget_market.columnCount()):
+                    item = self.tableWidget_market.item(i, j)
+                    if item is not None:
+                        row.append(item.text())
+                writer.writerow(row)
 
     def delete_row_from_table(self):
         pass
