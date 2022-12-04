@@ -63,7 +63,9 @@ class Admin(QMainWindow, Ui_Admin):
         self.search_goods()
 
     def save_table_to_db(self):
-        self.connection.commit()
+        # TODO: доделать, учесть то что надо сохранять id категории, а не её название
+        # self.connection.commit()
+        pass
 
     def add_row_to_table(self):
         self.tableWidget_market.insertRow(0)
