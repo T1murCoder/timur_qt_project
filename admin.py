@@ -63,7 +63,7 @@ class Admin(QMainWindow, Ui_Admin):
         self.search_goods()
 
     def save_table_to_db(self):
-        # TODO: доделать, учесть то что надо сохранять id категории, а не её название
+        # TODO: доделать чтобы сохранялись новые, учесть то что надо сохранять id категории, а не её название
         # self.connection.commit()
         pass
 
@@ -71,28 +71,43 @@ class Admin(QMainWindow, Ui_Admin):
         self.tableWidget_market.insertRow(0)
 
     def import_to_csv(self):
-        path, cap = QFileDialog.getSaveFileName(self, 'Save file', 'Записи\\', "Table files (*.csv)")
+        try:
+            path, cap = QFileDialog.getSaveFileName(self, 'Save file', 'Записи\\', "Table files (*.csv)")
 
-        with open(path, 'w', encoding='utf-8', newline='') as csvfile:
-            writer = csv.writer(
-                csvfile, delimiter=';', quotechar='"',
-                quoting=csv.QUOTE_MINIMAL)
-            writer.writerow(
-                [self.tableWidget_market.horizontalHeaderItem(i).text()
-                 for i in range(self.tableWidget_market.columnCount())])
-            for i in range(self.tableWidget_market.rowCount()):
-                row = []
-                for j in range(self.tableWidget_market.columnCount()):
-                    item = self.tableWidget_market.item(i, j)
-                    if item is not None:
-                        row.append(item.text())
-                writer.writerow(row)
+            res = self.connection.cursor().execute("""SELECT goods.name as GoodName, goods.price,
+            categories.name as CategoryName,
+            goods.available FROM goods
+            INNER JOIN categories ON categories.id = goods.category""").fetchall()
+
+            with open(path, 'w', encoding='utf-8', newline='') as csvfile:
+                writer = csv.writer(
+                    csvfile, delimiter=';', quotechar='"',
+                    quoting=csv.QUOTE_MINIMAL)
+                writer.writerow(
+                    [self.tableWidget_market.horizontalHeaderItem(i).text()
+                     for i in range(self.tableWidget_market.columnCount())])
+                for i in range(len(res)):
+                    row = []
+                    for j in range(len(res[i])):
+                        item = res[i][j]
+                        if item is not None:
+                            row.append(item)
+                    writer.writerow(row)
+        except Exception as ex:
+            print(ex)
 
     def delete_row_from_table(self):
         pass
 
+    def set_users_table(self):
+        pass
+
     def user_auth(self):
         pass
+
+    def closeEvent(self, event):
+        self.connection.close()
+        self.user_connection.close()
 
 
 
