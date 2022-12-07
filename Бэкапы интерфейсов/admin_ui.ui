@@ -51,7 +51,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="documentMode">
      <bool>false</bool>
@@ -190,7 +190,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="btn_import_to_csv">
+        <widget class="QPushButton" name="btn_import_to_csv_goods">
          <property name="text">
           <string>Импорт CSV</string>
          </property>
@@ -213,6 +213,10 @@
      </widget>
     </widget>
     <widget class="QWidget" name="tab_basket">
+     <attribute name="icon">
+      <iconset>
+       <normaloff>../icons/computer_icon_white.png</normaloff>../icons/computer_icon_white.png</iconset>
+     </attribute>
      <attribute name="title">
       <string>Администрирование</string>
      </attribute>
@@ -221,7 +225,7 @@
        <rect>
         <x>10</x>
         <y>50</y>
-        <width>671</width>
+        <width>601</width>
         <height>431</height>
        </rect>
       </property>
@@ -240,13 +244,45 @@
        <rect>
         <x>20</x>
         <y>20</y>
-        <width>121</width>
+        <width>131</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
        <string>Список пользователей</string>
       </property>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>630</x>
+        <y>50</y>
+        <width>111</width>
+        <height>431</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btn_import_to_csv_users">
+         <property name="text">
+          <string>Импорт CSV</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_profile">

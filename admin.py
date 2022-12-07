@@ -24,7 +24,8 @@ class Admin(QMainWindow, Ui_Admin):
         self.btn_search.clicked.connect(self.search_goods)
         self.btn_update.clicked.connect(self.update_table)
         self.btn_add_row.clicked.connect(self.add_row_to_table)
-        self.btn_import_to_csv.clicked.connect(self.import_goods_to_csv)
+        self.btn_import_to_csv_goods.clicked.connect(self.import_goods_to_csv)
+        self.btn_import_to_csv_users.clicked.connect(self.import_users_to_csv)
         #self.btn_save_db.clicked.connect(self.save_table_to_db)
 
     def set_market_table(self, query):
@@ -98,7 +99,29 @@ class Admin(QMainWindow, Ui_Admin):
             print(ex)
 
     def import_users_to_csv(self):
-        pass
+        try:
+            path, cap = QFileDialog.getSaveFileName(self, 'Save file', 'Записи\\', "Table files (*.csv)")
+
+            res = self.user_connection.cursor().execute("""SELECT id, username,
+                                                            card_number, phone_number FROM users""").fetchall()
+
+            with open(path, 'w', encoding='utf-8', newline='') as csvfile:
+                writer = csv.writer(
+                    csvfile, delimiter=';', quotechar='"',
+                    quoting=csv.QUOTE_MINIMAL)
+                writer.writerow(
+                    [self.tableWidget_users.horizontalHeaderItem(i).text()
+                     for i in range(self.tableWidget_users.columnCount())])
+                for i in range(len(res)):
+                    row = []
+                    for j in range(len(res[i])):
+                        item = res[i][j]
+                        if item is None:
+                            item = ''
+                        row.append(item)
+                    writer.writerow(row)
+        except Exception as ex:
+            print(ex)
 
     def delete_row_from_table(self):
         pass
