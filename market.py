@@ -12,7 +12,7 @@ class Market(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self.setStyleSheet(styleSheet)
-        self.connection = sqlite3.connect('databases/market_db.db')
+        self.goods_connection = sqlite3.connect('databases/market_db.db')
         self.user_connection = sqlite3.connect('databases/users_db.db')
         self.current_user_id = user_id
         self.basket = []
@@ -36,7 +36,7 @@ class Market(QMainWindow, Ui_MainWindow):
             self.tableWidget_market.setColumnCount(4)
             self.tableWidget_market.setRowCount(0)
             self.tableWidget_market.setHorizontalHeaderLabels(['Имя', 'Цена', 'Категория', 'Наличие'])
-            res = self.connection.cursor().execute(query).fetchall()
+            res = self.goods_connection.cursor().execute(query).fetchall()
             for i, row in enumerate(res):
                 self.tableWidget_market.setRowCount(
                     self.tableWidget_market.rowCount() + 1)
@@ -47,7 +47,7 @@ class Market(QMainWindow, Ui_MainWindow):
             print(ex)
 
     def set_combo_categories(self):
-        res = self.connection.cursor().execute("SELECT name FROM categories").fetchall()
+        res = self.goods_connection.cursor().execute("SELECT name FROM categories").fetchall()
         self.cmb_categories.addItems(['Все'] + [elem[0] for elem in res])
 
     def search_goods(self):
@@ -89,7 +89,7 @@ class Market(QMainWindow, Ui_MainWindow):
 
     def write_basket_to_db(self):
         try:
-            cur = self.connection.cursor()
+            cur = self.goods_connection.cursor()
             ids = [cur.execute(f"SELECT id FROM goods WHERE name='{elem[0]}'").fetchone()[0] for elem in self.basket]
             ids = [str(elem) for elem in ids]
             cur = self.user_connection.cursor()
@@ -225,7 +225,7 @@ class Market(QMainWindow, Ui_MainWindow):
         username, card_number, phone_number = result[0]
         ids = cur.execute(f"""SELECT basket FROM users WHERE id='{self.current_user_id}'""").fetchone()[0]
         if ids:
-            cur = self.connection.cursor()
+            cur = self.goods_connection.cursor()
             self.basket = [list(cur.execute(f"""SELECT goods.name,
                                                 goods.price,
                                                 categories.name as CategoryName,
@@ -240,7 +240,7 @@ class Market(QMainWindow, Ui_MainWindow):
             self.lineEdit_phone.setText(str(phone_number))
 
     def closeEvent(self, event):
-        self.connection.close()
+        self.goods_connection.close()
         self.user_connection.close()
 
 

@@ -13,17 +13,18 @@ class Admin(QMainWindow, Ui_Admin):
         super().__init__()
         self.setupUi(self)
         self.setStyleSheet(styleSheet)
-        self.connection = sqlite3.connect('databases/market_db.db')
+        self.goods_connection = sqlite3.connect('databases/market_db.db')
         self.user_connection = sqlite3.connect('databases/users_db.db')
         self.InitUI()
 
     def InitUI(self):
+        self.user_auth()
         self.set_combo_categories()
         self.search_goods()
         self.btn_search.clicked.connect(self.search_goods)
         self.btn_update.clicked.connect(self.update_table)
         self.btn_add_row.clicked.connect(self.add_row_to_table)
-        self.btn_import_to_csv.clicked.connect(self.import_to_csv)
+        self.btn_import_to_csv.clicked.connect(self.import_goods_to_csv)
         #self.btn_save_db.clicked.connect(self.save_table_to_db)
 
     def set_market_table(self, query):
@@ -31,7 +32,7 @@ class Admin(QMainWindow, Ui_Admin):
             self.tableWidget_market.setColumnCount(4)
             self.tableWidget_market.setRowCount(0)
             self.tableWidget_market.setHorizontalHeaderLabels(['Имя', 'Цена', 'Категория', 'Наличие'])
-            res = self.connection.cursor().execute(query).fetchall()
+            res = self.goods_connection.cursor().execute(query).fetchall()
             for i, row in enumerate(res):
                 self.tableWidget_market.setRowCount(
                     self.tableWidget_market.rowCount() + 1)
@@ -42,7 +43,7 @@ class Admin(QMainWindow, Ui_Admin):
             print(ex)
 
     def set_combo_categories(self):
-        res = self.connection.cursor().execute("SELECT name FROM categories").fetchall()
+        res = self.goods_connection.cursor().execute("SELECT name FROM categories").fetchall()
         self.cmb_categories.addItems(['Все'] + [elem[0] for elem in res])
 
     def search_goods(self):
@@ -64,17 +65,17 @@ class Admin(QMainWindow, Ui_Admin):
 
     def save_table_to_db(self):
         # TODO: доделать чтобы сохранялись новые, учесть то что надо сохранять id категории, а не её название
-        # self.connection.commit()
+        # self.goods_connection.commit()
         pass
 
     def add_row_to_table(self):
         self.tableWidget_market.insertRow(0)
 
-    def import_to_csv(self):
+    def import_goods_to_csv(self):
         try:
             path, cap = QFileDialog.getSaveFileName(self, 'Save file', 'Записи\\', "Table files (*.csv)")
 
-            res = self.connection.cursor().execute("""SELECT goods.name as GoodName, goods.price,
+            res = self.goods_connection.cursor().execute("""SELECT goods.name as GoodName, goods.price,
             categories.name as CategoryName,
             goods.available FROM goods
             INNER JOIN categories ON categories.id = goods.category""").fetchall()
@@ -96,17 +97,40 @@ class Admin(QMainWindow, Ui_Admin):
         except Exception as ex:
             print(ex)
 
+    def import_users_to_csv(self):
+        pass
+
     def delete_row_from_table(self):
         pass
 
-    def set_users_table(self):
-        pass
-
     def user_auth(self):
-        pass
+        self.set_users_table()
+        self.count_goods()
+
+    def set_users_table(self):
+        cur = self.user_connection.cursor()
+        res = cur.execute("""SELECT id, username, card_number, phone_number FROM users""").fetchall()
+        self.lineEdit_count_users.setText(str(len(res)))
+
+        self.tableWidget_users.setColumnCount(4)
+        self.tableWidget_users.setRowCount(0)
+        self.tableWidget_users.setHorizontalHeaderLabels(['id', 'Имя', 'Номер карты', 'Номер телефона'])
+        for i, row in enumerate(res):
+            self.tableWidget_users.setRowCount(
+                self.tableWidget_users.rowCount() + 1)
+            for j, elem in enumerate(row):
+                if elem is None:
+                    elem = 'Не указано'
+                self.tableWidget_users.setItem(
+                    i, j, QTableWidgetItem(str(elem)))
+
+    def count_goods(self):
+        cur = self.goods_connection.cursor()
+        res = cur.execute("""SELECT id FROM goods""").fetchall()
+        self.lineEdit_count_goods.setText(str(len(res)))
 
     def closeEvent(self, event):
-        self.connection.close()
+        self.goods_connection.close()
         self.user_connection.close()
 
 
