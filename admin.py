@@ -81,20 +81,21 @@ class Admin(QMainWindow, Ui_Admin):
             goods.available FROM goods
             INNER JOIN categories ON categories.id = goods.category""").fetchall()
 
-            with open(path, 'w', encoding='utf-8', newline='') as csvfile:
-                writer = csv.writer(
-                    csvfile, delimiter=';', quotechar='"',
-                    quoting=csv.QUOTE_MINIMAL)
-                writer.writerow(
-                    [self.tableWidget_market.horizontalHeaderItem(i).text()
-                     for i in range(self.tableWidget_market.columnCount())])
-                for i in range(len(res)):
-                    row = []
-                    for j in range(len(res[i])):
-                        item = res[i][j]
-                        if item is not None:
-                            row.append(item)
-                    writer.writerow(row)
+            if path:
+                with open(path, 'w', encoding='utf-8', newline='') as csvfile:
+                    writer = csv.writer(
+                        csvfile, delimiter=';', quotechar='"',
+                        quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow(
+                        [self.tableWidget_market.horizontalHeaderItem(i).text()
+                         for i in range(self.tableWidget_market.columnCount())])
+                    for i in range(len(res)):
+                        row = []
+                        for j in range(len(res[i])):
+                            item = res[i][j]
+                            if item is not None:
+                                row.append(item)
+                        writer.writerow(row)
         except Exception as ex:
             print(ex)
 
@@ -105,21 +106,22 @@ class Admin(QMainWindow, Ui_Admin):
             res = self.user_connection.cursor().execute("""SELECT id, username,
                                                             card_number, phone_number FROM users""").fetchall()
 
-            with open(path, 'w', encoding='utf-8', newline='') as csvfile:
-                writer = csv.writer(
-                    csvfile, delimiter=';', quotechar='"',
-                    quoting=csv.QUOTE_MINIMAL)
-                writer.writerow(
-                    [self.tableWidget_users.horizontalHeaderItem(i).text()
-                     for i in range(self.tableWidget_users.columnCount())])
-                for i in range(len(res)):
-                    row = []
-                    for j in range(len(res[i])):
-                        item = res[i][j]
-                        if item is None:
-                            item = ''
-                        row.append(item)
-                    writer.writerow(row)
+            if path:
+                with open(path, 'w', encoding='utf-8', newline='') as csvfile:
+                    writer = csv.writer(
+                        csvfile, delimiter=';', quotechar='"',
+                        quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow(
+                        [self.tableWidget_users.horizontalHeaderItem(i).text()
+                         for i in range(self.tableWidget_users.columnCount())])
+                    for i in range(len(res)):
+                        row = []
+                        for j in range(len(res[i])):
+                            item = res[i][j]
+                            if item is None:
+                                item = ''
+                            row.append(item)
+                        writer.writerow(row)
         except Exception as ex:
             print(ex)
 
