@@ -218,7 +218,6 @@ class Market(QMainWindow, Ui_MainWindow):
         self.user_connection.commit()
 
     def user_auth(self):
-        # TODO: Добавить e-mail
         cur = self.user_connection.cursor()
         result = cur.execute(f"""SELECT username, card_number, phone_number
                                 FROM users WHERE id='{self.current_user_id}'""").fetchall()

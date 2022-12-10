@@ -1,76 +1,76 @@
-Имя;Цена;Категория;Наличие
-Samsung A52;15000;Телефоны;0
-Samsung Galaxy S21+;62636;Телефоны;0
-Apple iPhone 14 Pro;80000;Телефоны;0
-Samsung Galaxy A23;11160;Телефоны;0
-Poco M4 Pro;19363;Телефоны;0
-Xiaomi Redmi 10;10867;Телефоны;0
-Vivo Y22;9515;Телефоны;0
-Honor 70;31423;Телефоны;0
-Apple iPhone X;24243;Телефоны;0
-Xiaomi Redmi Note 11;14980;Телефоны;0
-HUAWEI Nova Y70;12190;Телефоны;0
-HUAWEI Mate Xs 2;139999;Телефоны;0
-HUAWEI P50 Pocket;79862;Телефоны;0
-OnePlus 10 Pro;53030;Телефоны;0
-Apple iPhone 13;54490;Телефоны;0
-Apple MacBook Air 13;67170;Ноутбуки;0
-HONOR MagicBook X 14;53990;Ноутбуки;0
-HUAWEI MateBook D 14;43989;Ноутбуки;0
-Xiaomi RedmiBook Pro;71990;Ноутбуки;0
-MSI Katana GF76;101999;Ноутбуки;0
-HONOR MagicBook 15;68240;Ноутбуки;0
-Lenovo Ideapad L340;37278;Ноутбуки;0
-HUAWEI MateBook D 16;68790;Ноутбуки;0
-Apple Macbook Pro 14;128440;Ноутбуки;0
-ASUS TUF Gaming F15;91350;Ноутбуки;0
-JBL Tune 510BT;4590;Наушники;0
-HUAWEI FreeBuds SE;2468;Наушники;0
-HONOR Choice Earbuds X;2120;Наушники;0
-HUAWEI FreeBuds 4i;8697;Наушники;0
-Apple AirPods Pro MagSafe;13920;Наушники;0
-Acer Nitro VG243Ybii;11390;Мониторы;0
-ASUS VA247HE;11264;Мониторы;0
-AOC Q27G2S;29990;Мониторы;0
-Xiaomi Mi Curved Gaming;29840;Мониторы;0
-Samsung S32A700NWU;33249;Мониторы;0
-Razer Ornata V2;5690;Клавиатуры;0
-Razer Cynosa Lite;2290;Клавиатуры;0
-Defender Chimera;915;Клавиатуры;0
-Bloody B820R;4340;Клавиатуры;0
-Bloody B765;2349;Клавиатуры;0
-Защитный чехол для Apple iPhone 11;178;Аксессуары;0
-JBL GO 3;3490;Акустика;0
-HyperX QuadCast;10350;Микрофоны;0
-Razer DeathAdder Essential;1690;Компьютерные мыши;0
-Western Digital WD Blue Desktop 4 ТБ;7000;Жёсткие диски;0
-Sony DualSense;5890;Джойстики;0
-Sony PlayStation 5;59990;Игровые приставки;0
-Microsoft Xbox Series X;45160;Игровые приставки;0
-Microsoft Xbox Series S;23649;Игровые приставки;0
-HYPERPC LUMEN PRO PLUS;210700;ПК;0
-Intel Core i5-12400 LGA1700;14662;Процессоры;0
-Intel Core i3-12100F LGA1700;7500;Процессоры;0
-AMD Ryzen 5 5600X AM4;13204;Процессоры;0
-Kingston FURY Beast 16 ГБ (8 ГБ x 2 шт.);4300;Оперативная память;0
-GIGABYTE GeForce RTX 3060 Ti GAMING OC 8G;39769;Видеокарты;0
-GIGABYTE GeForce RTX 3080 GAMING OC 10G;69990;Видеокарты;0
-MSI GeForce GTX 1660 SUPER Gaming X 6GB;23777;Видеокарты;0
-AeroCool KCAS PLUS 700W;3557;Блоки питания;0
-be quiet! System Power 9 500W;3997;Блоки питания;0
-Chieftec SLC-750C 750W;6105;Блоки питания;0
-DEEPCOOL AK400;2250;Кулера;0
-Deepcool GAMMAXX 300;1159;Кулера;0
-AeroCool Rave 4;1961;Кулера;0
-Deepcool Matrexx 30;2817;Корпуса;0
-AeroCool Cylon Mini;2936;Корпуса;0
-1stPlayer FireBase X2;2998;Корпуса;0
-GIGABYTE B660 Gaming X DDR4;11860;Материнские платы;0
-GIGABYTE Z490 AORUS XTREME WATERFORCE;53479;Материнские платы;0
-GIGABYTE Z690 AORUS ELITE DDR4;19326;Материнские платы;0
-Xiaomi Pad 5;27589;Планшеты;0
-Apple iPad 10.2 2021;24170;Планшеты;0
-HUAWEI MatePad T 10s;17776;Планшеты;0
-HP LaserJet 107w;17190;Принтеры;0
-Pantum P2500;7690;Принтеры;0
-HP LaserJet Pro M404dw;25639;Принтеры;0
+id;Имя;Цена;Категория;Наличие
+1;Samsung A52;15000;Телефоны;1
+2;Samsung Galaxy S21+;62636;Телефоны;2
+3;Apple iPhone 14 Pro;80000;Телефоны;3
+4;Samsung Galaxy A23;11160;Телефоны;0
+5;Poco M4 Pro;19363;Телефоны;0
+6;Xiaomi Redmi 10;10867;Телефоны;0
+7;Vivo Y22;9515;Телефоны;0
+8;Honor 70;31423;Телефоны;0
+9;Apple iPhone X;24243;Телефоны;0
+10;Xiaomi Redmi Note 11;14980;Телефоны;0
+11;HUAWEI Nova Y70;12190;Телефоны;0
+12;HUAWEI Mate Xs 2;139999;Телефоны;0
+13;HUAWEI P50 Pocket;79862;Телефоны;0
+14;OnePlus 10 Pro;53030;Телефоны;0
+15;Apple iPhone 13;54490;Телефоны;0
+16;Apple MacBook Air 13;67170;Ноутбуки;0
+17;HONOR MagicBook X 14;53990;Ноутбуки;0
+18;HUAWEI MateBook D 14;43989;Ноутбуки;0
+19;Xiaomi RedmiBook Pro;71990;Ноутбуки;0
+20;MSI Katana GF76;101999;Ноутбуки;0
+21;HONOR MagicBook 15;68240;Ноутбуки;0
+22;Lenovo Ideapad L340;37278;Ноутбуки;0
+23;HUAWEI MateBook D 16;68790;Ноутбуки;0
+24;Apple Macbook Pro 14;128440;Ноутбуки;0
+25;ASUS TUF Gaming F15;91350;Ноутбуки;0
+26;JBL Tune 510BT;4590;Наушники;0
+27;HUAWEI FreeBuds SE;2468;Наушники;0
+28;HONOR Choice Earbuds X;2120;Наушники;0
+29;HUAWEI FreeBuds 4i;8697;Наушники;0
+30;Apple AirPods Pro MagSafe;13920;Наушники;0
+31;Acer Nitro VG243Ybii;11390;Мониторы;0
+32;ASUS VA247HE;11264;Мониторы;0
+33;AOC Q27G2S;29990;Мониторы;0
+34;Xiaomi Mi Curved Gaming;29840;Мониторы;0
+35;Samsung S32A700NWU;33249;Мониторы;0
+36;Razer Ornata V2;5690;Клавиатуры;0
+37;Razer Cynosa Lite;2290;Клавиатуры;0
+38;Defender Chimera;915;Клавиатуры;0
+39;Bloody B820R;4340;Клавиатуры;0
+40;Bloody B765;2349;Клавиатуры;0
+41;Защитный чехол для Apple iPhone 11;178;Аксессуары;0
+42;JBL GO 3;3490;Акустика;0
+43;HyperX QuadCast;10350;Микрофоны;0
+44;Razer DeathAdder Essential;1690;Компьютерные мыши;0
+45;Western Digital WD Blue Desktop 4 ТБ;7000;Жёсткие диски;0
+46;Sony DualSense;5890;Джойстики;0
+47;Sony PlayStation 5;59990;Игровые приставки;0
+48;Microsoft Xbox Series X;45160;Игровые приставки;0
+49;Microsoft Xbox Series S;23649;Игровые приставки;0
+50;HYPERPC LUMEN PRO PLUS;210700;ПК;0
+51;Intel Core i5-12400 LGA1700;14662;Процессоры;0
+52;Intel Core i3-12100F LGA1700;7500;Процессоры;0
+53;AMD Ryzen 5 5600X AM4;13204;Процессоры;0
+54;Kingston FURY Beast 16 ГБ (8 ГБ x 2 шт.);4300;Оперативная память;0
+55;GIGABYTE GeForce RTX 3060 Ti GAMING OC 8G;39769;Видеокарты;0
+56;GIGABYTE GeForce RTX 3080 GAMING OC 10G;69990;Видеокарты;0
+57;MSI GeForce GTX 1660 SUPER Gaming X 6GB;23777;Видеокарты;0
+58;AeroCool KCAS PLUS 700W;3557;Блоки питания;0
+59;be quiet! System Power 9 500W;3997;Блоки питания;0
+60;Chieftec SLC-750C 750W;6105;Блоки питания;0
+61;DEEPCOOL AK400;2250;Кулера;0
+62;Deepcool GAMMAXX 300;1159;Кулера;0
+63;AeroCool Rave 4;1961;Кулера;0
+64;Deepcool Matrexx 30;2817;Корпуса;0
+65;AeroCool Cylon Mini;2936;Корпуса;0
+66;1stPlayer FireBase X2;2998;Корпуса;0
+67;GIGABYTE B660 Gaming X DDR4;11860;Материнские платы;0
+68;GIGABYTE Z490 AORUS XTREME WATERFORCE;53479;Материнские платы;0
+69;GIGABYTE Z690 AORUS ELITE DDR4;19326;Материнские платы;0
+70;Xiaomi Pad 5;27589;Планшеты;0
+71;Apple iPad 10.2 2021;24170;Планшеты;0
+72;HUAWEI MatePad T 10s;17776;Планшеты;0
+73;HP LaserJet 107w;17190;Принтеры;0
+74;Pantum P2500;7690;Принтеры;0
+75;HP LaserJet Pro M404dw;25639;Принтеры;0
