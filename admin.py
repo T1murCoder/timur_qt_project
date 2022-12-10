@@ -27,7 +27,8 @@ class Admin(QMainWindow, Ui_Admin):
         self.search_goods()
         self.btn_search.clicked.connect(self.search_goods)
         self.btn_update.clicked.connect(self.update_table)
-        self.btn_add_row.clicked.connect(self.add_row_to_table)
+        #Временно отключил, надо реализовать добавление id и сохранение в ДБ
+        #self.btn_add_row.clicked.connect(self.add_row_to_table)
         self.btn_import_to_csv_goods.clicked.connect(self.import_goods_to_csv)
         self.btn_import_to_csv_users.clicked.connect(self.import_users_to_csv)
         self.btn_save_db.clicked.connect(self.save_table_to_db)
