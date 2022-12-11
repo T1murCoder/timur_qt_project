@@ -94,8 +94,13 @@ class Admin(QMainWindow, Ui_Admin):
 
     def item_changed(self, item):
         try:
-            self.changed_items.append([self.tableWidget_market.item(item.row(), i).text()
-                   for i in range(self.tableWidget_market.columnCount())])
+            row = [self.tableWidget_market.item(item.row(), i).text()
+                   for i in range(self.tableWidget_market.columnCount())]
+            if self.changed_items:
+                for i in range(len(self.changed_items)):
+                    if row[0] == self.changed_items[i][0]:
+                        del self.changed_items[i]
+            self.changed_items.append(row)
         except Exception as ex:
             print(ex)
 
@@ -187,7 +192,6 @@ class Admin(QMainWindow, Ui_Admin):
     def closeEvent(self, event):
         self.goods_connection.close()
         self.user_connection.close()
-
 
 
 if __name__ == '__main__':

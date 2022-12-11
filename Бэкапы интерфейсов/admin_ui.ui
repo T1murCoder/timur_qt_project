@@ -51,7 +51,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="documentMode">
      <bool>false</bool>
@@ -114,7 +114,7 @@
        <rect>
         <x>10</x>
         <y>50</y>
-        <width>521</width>
+        <width>571</width>
         <height>421</height>
        </rect>
       </property>
@@ -141,7 +141,7 @@
      <widget class="QWidget" name="verticalLayoutWidget">
       <property name="geometry">
        <rect>
-        <x>560</x>
+        <x>620</x>
         <y>50</y>
         <width>121</width>
         <height>421</height>
