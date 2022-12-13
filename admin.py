@@ -15,7 +15,6 @@ class Admin(QMainWindow, Ui_Admin):
         self.setStyleSheet(styleSheet)
         self.goods_connection = sqlite3.connect('databases/market_db.db')
         self.user_connection = sqlite3.connect('databases/users_db.db')
-        self.added_items = []
         self.deleted_items = []
         self.changed_items = []
         self.InitUI()
@@ -27,8 +26,8 @@ class Admin(QMainWindow, Ui_Admin):
         self.search_goods()
         self.btn_search.clicked.connect(self.search_goods)
         self.btn_update.clicked.connect(self.update_table)
-        #Временно отключил, надо реализовать добавление id и сохранение в ДБ
-        #self.btn_add_row.clicked.connect(self.add_row_to_table)
+        # Временно отключил, надо реализовать добавление id и сохранение в ДБ
+        self.btn_add_row.clicked.connect(self.add_row_to_table)
         self.btn_import_to_csv_goods.clicked.connect(self.import_goods_to_csv)
         self.btn_import_to_csv_users.clicked.connect(self.import_users_to_csv)
         self.btn_save_db.clicked.connect(self.save_table_to_db)
@@ -89,6 +88,7 @@ class Admin(QMainWindow, Ui_Admin):
                 for elem in changed_items:
                     cur.execute(f"""UPDATE goods SET available = {elem[4]} WHERE id='{elem[0]}'""")
                     self.goods_connection.commit()
+            # TODO: Придётся перебирать всю таблицу и искать ряды которых нет в дб, получить актуальные данные после изменения
         except Exception as ex:
             print(ex)
 
@@ -101,6 +101,10 @@ class Admin(QMainWindow, Ui_Admin):
                     if row[0] == self.changed_items[i][0]:
                         del self.changed_items[i]
             self.changed_items.append(row)
+            print(self.changed_items)
+        except AttributeError:
+            pass
+
         except Exception as ex:
             print(ex)
 

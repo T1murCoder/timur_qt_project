@@ -142,7 +142,7 @@ class Ui_Admin(object):
 
     def retranslateUi(self, Admin):
         _translate = QtCore.QCoreApplication.translate
-        Admin.setWindowTitle(_translate("Admin", "MainWindow"))
+        Admin.setWindowTitle(_translate("Admin", "Admin panel"))
         self.btn_search.setText(_translate("Admin", "Поиск"))
         self.label.setText(_translate("Admin", "Категории:"))
         self.btn_update.setText(_translate("Admin", "Обновить"))
