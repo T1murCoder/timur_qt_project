@@ -15,6 +15,7 @@ class Admin(QMainWindow, Ui_Admin):
         self.setStyleSheet(styleSheet)
         self.goods_connection = sqlite3.connect('databases/market_db.db')
         self.user_connection = sqlite3.connect('databases/users_db.db')
+        self.added_items = []
         self.deleted_items = []
         self.changed_items = []
         self.InitUI()
@@ -88,6 +89,8 @@ class Admin(QMainWindow, Ui_Admin):
                 for elem in changed_items:
                     cur.execute(f"""UPDATE goods SET available = {elem[4]} WHERE id='{elem[0]}'""")
                     self.goods_connection.commit()
+            if self.added_items:
+                pass
             # TODO: Придётся перебирать всю таблицу и искать ряды которых нет в дб, получить актуальные данные после изменения
         except Exception as ex:
             print(ex)
@@ -96,11 +99,12 @@ class Admin(QMainWindow, Ui_Admin):
         try:
             row = [self.tableWidget_market.item(item.row(), i).text()
                    for i in range(self.tableWidget_market.columnCount())]
-            if self.changed_items:
-                for i in range(len(self.changed_items)):
-                    if row[0] == self.changed_items[i][0]:
-                        del self.changed_items[i]
-            self.changed_items.append(row)
+            if int(row[0]) not in self.added_items:
+                if self.changed_items:
+                    for i in range(len(self.changed_items)):
+                        if row[0] == self.changed_items[i][0]:
+                            del self.changed_items[i]
+                self.changed_items.append(row)
             print(self.changed_items)
         except AttributeError:
             pass
@@ -109,7 +113,12 @@ class Admin(QMainWindow, Ui_Admin):
             print(ex)
 
     def add_row_to_table(self):
+        new_id = max([int(self.tableWidget_market.item(i, 0).text())
+                      for i in range(self.tableWidget_market.rowCount())]) + 1
         self.tableWidget_market.insertRow(0)
+        self.tableWidget_market.setItem(0, 0, QTableWidgetItem(str(new_id)))
+        self.added_items.append(new_id)
+        print(self.added_items)
 
     def delete_row_from_table(self):
         pass
