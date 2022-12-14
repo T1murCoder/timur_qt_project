@@ -83,8 +83,7 @@ class Admin(QMainWindow, Ui_Admin):
             for elem in res:
                 c_id, name = elem
                 categories_dt[name] = c_id
-            # Временно отключил
-            '''
+
             if self.changed_items:
                 changed_items = self.changed_items[:]
                 self.changed_items.clear()
@@ -98,12 +97,15 @@ class Admin(QMainWindow, Ui_Admin):
                                     SET name = '{elem[1]}', price = '{elem[2]}',
                                     category = '{elem[3]}', available = '{elem[4]}'
                                     WHERE id='{elem[0]}'""")
-                    self.goods_connection.commit()'''
+                    self.goods_connection.commit()
+
             if self.added_items:
+                added_items = self.added_items[:]
+                self.added_items.clear()
                 items_to_add = []
                 for i in range(self.tableWidget_market.rowCount()):
                     temp = []
-                    if int(self.tableWidget_market.item(i, 0).text()) in self.added_items:
+                    if int(self.tableWidget_market.item(i, 0).text()) in added_items:
                         for j in range(self.tableWidget_market.columnCount()):
                             if self.tableWidget_market.item(i, j):
                                 temp.append(self.tableWidget_market.item(i, j).text())
@@ -112,6 +114,7 @@ class Admin(QMainWindow, Ui_Admin):
                                 break
                     if temp:
                         items_to_add.append(temp)
+
                 if items_to_add:
                     for elem in items_to_add:
                         if elem[3] in categories_dt.keys():
