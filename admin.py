@@ -70,27 +70,59 @@ class Admin(QMainWindow, Ui_Admin):
 
     def update_table(self):
         self.changed_items.clear()
+        self.added_items.clear()
         self.search_goods()
 
     def save_table_to_db(self):
         # TODO: доделать чтобы сохранялись новые, учесть то что надо сохранять id категории, а не её название
         try:
+
             categories_dt = {}
             cur = self.goods_connection.cursor()
             res = cur.execute("""SELECT id, name FROM categories""").fetchall()
             for elem in res:
                 c_id, name = elem
                 categories_dt[name] = c_id
+            # Временно отключил
+            '''
             if self.changed_items:
                 changed_items = self.changed_items[:]
                 self.changed_items.clear()
                 for elem in changed_items:
-                    elem[3] = categories_dt[elem[3]]
+                    if elem[3] in categories_dt.keys():
+                        elem[3] = categories_dt[elem[3]]
+                    else:
+                        elem[3] = '0'
                 for elem in changed_items:
-                    cur.execute(f"""UPDATE goods SET available = {elem[4]} WHERE id='{elem[0]}'""")
-                    self.goods_connection.commit()
+                    cur.execute(f"""UPDATE goods
+                                    SET name = '{elem[1]}', price = '{elem[2]}',
+                                    category = '{elem[3]}', available = '{elem[4]}'
+                                    WHERE id='{elem[0]}'""")
+                    self.goods_connection.commit()'''
             if self.added_items:
-                pass
+                items_to_add = []
+                for i in range(self.tableWidget_market.rowCount()):
+                    temp = []
+                    if int(self.tableWidget_market.item(i, 0).text()) in self.added_items:
+                        for j in range(self.tableWidget_market.columnCount()):
+                            if self.tableWidget_market.item(i, j):
+                                temp.append(self.tableWidget_market.item(i, j).text())
+                            else:
+                                temp = []
+                                break
+                    if temp:
+                        items_to_add.append(temp)
+                if items_to_add:
+                    for elem in items_to_add:
+                        if elem[3] in categories_dt.keys():
+                            elem[3] = categories_dt[elem[3]]
+                        else:
+                            elem[3] = '0'
+                        cur.execute(f"""INSERT INTO goods
+                                        VALUES ('{elem[0]}', '{elem[1]}', '{elem[2]}', '{elem[3]}', '{elem[4]}')""")
+                        self.goods_connection.commit()
+                print(items_to_add)
+            #self.update_table()
             # TODO: Придётся перебирать всю таблицу и искать ряды которых нет в дб, получить актуальные данные после изменения
         except Exception as ex:
             print(ex)
