@@ -19,6 +19,7 @@ class Market(QMainWindow, Ui_MainWindow):
         self.initUI()
 
     def initUI(self):
+        # TODO: Добавить галочку для отображения товаров в наличии
         self.set_combo_categories()
         self.search_goods()
         self.user_auth()
@@ -65,6 +66,7 @@ class Market(QMainWindow, Ui_MainWindow):
         self.set_market_table(query)
 
     def add_to_basket(self):
+        # TODO: Добавить проверку на наличие
         rows = list(set([i.row() for i in self.tableWidget_market.selectedItems()]))
         for i in rows:
             self.basket.append([self.tableWidget_market.item(i, 0).text(),
