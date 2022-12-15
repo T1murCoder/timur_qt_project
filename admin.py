@@ -27,8 +27,8 @@ class Admin(QMainWindow, Ui_Admin):
         self.search_goods()
         self.btn_search.clicked.connect(self.search_goods)
         self.btn_update.clicked.connect(self.update_table)
-        # Временно отключил, надо реализовать добавление id и сохранение в ДБ
         self.btn_add_row.clicked.connect(self.add_row_to_table)
+        self.btn_delete.clicked.connect(self.delete_row_from_table)
         self.btn_import_to_csv_goods.clicked.connect(self.import_goods_to_csv)
         self.btn_import_to_csv_users.clicked.connect(self.import_users_to_csv)
         self.btn_save_db.clicked.connect(self.save_table_to_db)
@@ -74,9 +74,7 @@ class Admin(QMainWindow, Ui_Admin):
         self.search_goods()
 
     def save_table_to_db(self):
-        # TODO: доделать чтобы сохранялись новые, учесть то что надо сохранять id категории, а не её название
         try:
-
             categories_dt = {}
             cur = self.goods_connection.cursor()
             res = cur.execute("""SELECT id, name FROM categories""").fetchall()
@@ -124,9 +122,14 @@ class Admin(QMainWindow, Ui_Admin):
                         cur.execute(f"""INSERT INTO goods
                                         VALUES ('{elem[0]}', '{elem[1]}', '{elem[2]}', '{elem[3]}', '{elem[4]}')""")
                         self.goods_connection.commit()
-                print(items_to_add)
-            #self.update_table()
-            # TODO: Придётся перебирать всю таблицу и искать ряды которых нет в дб, получить актуальные данные после изменения
+
+            if self.deleted_items:
+                deleted_items = self.deleted_items[:]
+                self.deleted_items.clear()
+                for elem in deleted_items:
+                    cur.execute(f"""DELETE from goods WHERE id ='{elem}'""")
+                    self.goods_connection.commit()
+                pass
         except Exception as ex:
             print(ex)
 
@@ -153,10 +156,17 @@ class Admin(QMainWindow, Ui_Admin):
         self.tableWidget_market.insertRow(0)
         self.tableWidget_market.setItem(0, 0, QTableWidgetItem(str(new_id)))
         self.added_items.append(new_id)
-        print(self.added_items)
 
     def delete_row_from_table(self):
-        pass
+        try:
+            rows = sorted(list(set([i.row() for i in self.tableWidget_market.selectedItems()])), reverse=True)
+            for elem in rows:
+                self.deleted_items.append(self.tableWidget_market.item(elem, 0).text())
+                self.tableWidget_market.removeRow(elem)
+            print(rows)
+            print(self.deleted_items)
+        except Exception as ex:
+            print(ex)
 
     def import_goods_to_csv(self):
         try:
