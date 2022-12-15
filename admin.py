@@ -95,7 +95,7 @@ class Admin(QMainWindow, Ui_Admin):
                                     SET name = '{elem[1]}', price = '{elem[2]}',
                                     category = '{elem[3]}', available = '{elem[4]}'
                                     WHERE id='{elem[0]}'""")
-                    self.goods_connection.commit()
+                self.goods_connection.commit()
 
             if self.added_items:
                 added_items = self.added_items[:]
@@ -121,15 +121,14 @@ class Admin(QMainWindow, Ui_Admin):
                             elem[3] = '0'
                         cur.execute(f"""INSERT INTO goods
                                         VALUES ('{elem[0]}', '{elem[1]}', '{elem[2]}', '{elem[3]}', '{elem[4]}')""")
-                        self.goods_connection.commit()
+                    self.goods_connection.commit()
 
             if self.deleted_items:
                 deleted_items = self.deleted_items[:]
                 self.deleted_items.clear()
                 for elem in deleted_items:
                     cur.execute(f"""DELETE from goods WHERE id ='{elem}'""")
-                    self.goods_connection.commit()
-                pass
+                self.goods_connection.commit()
         except Exception as ex:
             print(ex)
 
