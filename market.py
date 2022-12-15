@@ -66,15 +66,18 @@ class Market(QMainWindow, Ui_MainWindow):
         self.set_market_table(query)
 
     def add_to_basket(self):
-        # TODO: Добавить проверку на наличие
-        rows = list(set([i.row() for i in self.tableWidget_market.selectedItems()]))
-        for i in rows:
-            self.basket.append([self.tableWidget_market.item(i, 0).text(),
-                                self.tableWidget_market.item(i, 1).text(),
-                                self.tableWidget_market.item(i, 2).text(),
-                                self.tableWidget_market.item(i, 3).text()])
-        self.write_basket_to_db()
-        self.set_basket_table()
+        try:
+            rows = list(set([i.row() for i in self.tableWidget_market.selectedItems()]))
+            for i in rows:
+                if int(self.tableWidget_market.item(i, 3).text()) > 0:
+                    self.basket.append([self.tableWidget_market.item(i, 0).text(),
+                                        self.tableWidget_market.item(i, 1).text(),
+                                        self.tableWidget_market.item(i, 2).text(),
+                                        self.tableWidget_market.item(i, 3).text()])
+            self.write_basket_to_db()
+            self.set_basket_table()
+        except Exception as ex:
+            print(ex)
 
     def set_basket_table(self):
         self.tableWidget_basket.setColumnCount(4)

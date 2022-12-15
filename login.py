@@ -33,7 +33,6 @@ class Login(QMainWindow, Ui_MainWindow):
             cur = self.user_connection.cursor()
             result = cur.execute("""SELECT * FROM users
             WHERE username = ? AND password = ?""", (username, encrypt(password))).fetchone()
-            print(result)
             if result:
                 self.lbl_answer.setText(f'Успешный вход под логином: {username}')
                 if result[0] == 1:
