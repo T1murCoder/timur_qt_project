@@ -4,7 +4,7 @@ import sqlite3
 import csv
 from interfaces.admin_ui import Ui_Admin
 from StyleSheet import styleSheet
-from PyQt5.QtWidgets import QMainWindow, QApplication, QTableWidgetItem, QAbstractItemView
+from PyQt5.QtWidgets import QMainWindow, QApplication, QTableWidgetItem
 from PyQt5.QtWidgets import QFileDialog
 
 
@@ -142,7 +142,6 @@ class Admin(QMainWindow, Ui_Admin):
                         if row[0] == self.changed_items[i][0]:
                             del self.changed_items[i]
                 self.changed_items.append(row)
-            print(self.changed_items)
         except AttributeError:
             pass
 
@@ -162,8 +161,6 @@ class Admin(QMainWindow, Ui_Admin):
             for elem in rows:
                 self.deleted_items.append(self.tableWidget_market.item(elem, 0).text())
                 self.tableWidget_market.removeRow(elem)
-            print(rows)
-            print(self.deleted_items)
         except Exception as ex:
             print(ex)
 
