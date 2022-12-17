@@ -131,14 +131,39 @@ class Market(QMainWindow, Ui_Market):
         self.lineEdit_total.setText(str(total))
 
     def order_goods(self):
-        # TODO: Сделать вычитание наличия заказанных товаров
-        if not self.lineEdit_card.text():
-            self.lbl_order.setText('Привяжите карту!')
-        elif not self.lineEdit_phone.text():
-            self.lbl_order.setText('Привяжите номер телефона!')
-        else:
-            self.lbl_order.setText('Заказ оформлен!')
-            self.reset_basket()
+        try:
+            if not self.lineEdit_card.text():
+                self.lbl_order.setText('Привяжите карту!')
+            elif not self.lineEdit_phone.text():
+                self.lbl_order.setText('Привяжите номер телефона!')
+            else:
+                self.lbl_order.setText('Заказ оформлен!')
+                self.subtract_from_available_goods()
+                #self.reset_basket()
+        except Exception as ex:
+            print(ex)
+
+    def subtract_from_available_goods(self):
+        # TODO: Сделать вычитание из наличия заказанных товаров
+        id_goods = []
+
+        cur = self.goods_connection.cursor()
+        for elem in self.basket:
+            temp = cur.execute(f"""SELECT id FROM goods WHERE name = '{elem[0]}'""").fetchone()
+            id_goods.append(temp[0])
+
+        count_goods_dt = {}
+        for elem in id_goods:
+            if elem not in count_goods_dt:
+                count_goods_dt[elem] = 1
+            else:
+                count_goods_dt[elem] += 1
+
+        for item, value in count_goods_dt.items():
+            current_available = cur.execute(f"""SELECT available FROM goods WHERE id='{item}'""").fetchone()[0]
+            new_available = current_available - value
+            cur.execute(f"""UPDATE goods SET available = '{new_available}' WHERE id='{item}'""")
+        self.goods_connection.commit()
 
     def link_bank_card(self):
         try:
