@@ -139,12 +139,12 @@ class Market(QMainWindow, Ui_Market):
             else:
                 self.lbl_order.setText('Заказ оформлен!')
                 self.subtract_from_available_goods()
-                #self.reset_basket()
+                self.reset_basket()
+                self.search_goods()
         except Exception as ex:
             print(ex)
 
     def subtract_from_available_goods(self):
-        # TODO: Сделать вычитание из наличия заказанных товаров
         id_goods = []
 
         cur = self.goods_connection.cursor()
@@ -162,6 +162,8 @@ class Market(QMainWindow, Ui_Market):
         for item, value in count_goods_dt.items():
             current_available = cur.execute(f"""SELECT available FROM goods WHERE id='{item}'""").fetchone()[0]
             new_available = current_available - value
+            if new_available < 0:
+                new_available = 0
             cur.execute(f"""UPDATE goods SET available = '{new_available}' WHERE id='{item}'""")
         self.goods_connection.commit()
 
