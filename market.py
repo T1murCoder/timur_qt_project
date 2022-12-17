@@ -19,7 +19,6 @@ class Market(QMainWindow, Ui_Market):
         self.initUI()
 
     def initUI(self):
-        # TODO: Добавить галочку для отображения товаров в наличии
         self.set_combo_categories()
         self.search_goods()
         self.user_auth()
@@ -31,6 +30,8 @@ class Market(QMainWindow, Ui_Market):
         self.btn_link_phone.clicked.connect(self.link_phone_number)
         self.btn_delete_card.clicked.connect(self.delete_bank_card)
         self.btn_delete_phone.clicked.connect(self.delete_phone_number)
+        self.btn_order.clicked.connect(self.order_goods)
+        self.tabWidget.currentChanged.connect(self.reset_order_label)
 
     def set_market_table(self, query):
         try:
@@ -109,6 +110,9 @@ class Market(QMainWindow, Ui_Market):
         self.write_basket_to_db()
         self.set_basket_table()
 
+    def reset_order_label(self):
+        self.lbl_order.setText('')
+
     def delete_from_basket(self):
         try:
             rows = list(set([i.row() for i in self.tableWidget_basket.selectedItems()]))
@@ -127,8 +131,14 @@ class Market(QMainWindow, Ui_Market):
         self.lineEdit_total.setText(str(total))
 
     def order_goods(self):
-        # TODO: Сделать оформление заказов
-        pass
+        # TODO: Сделать вычитание наличия заказанных товаров
+        if not self.lineEdit_card.text():
+            self.lbl_order.setText('Привяжите карту!')
+        elif not self.lineEdit_phone.text():
+            self.lbl_order.setText('Привяжите номер телефона!')
+        else:
+            self.lbl_order.setText('Заказ оформлен!')
+            self.reset_basket()
 
     def link_bank_card(self):
         try:
