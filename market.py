@@ -1,13 +1,13 @@
 import sys
 
 import sqlite3
-from interfaces.market_ui import Ui_MainWindow
+from interfaces.market_ui import Ui_Market
 from StyleSheet import styleSheet
 from PyQt5.QtWidgets import QMainWindow, QApplication, QTableWidgetItem
 from PyQt5.QtWidgets import QInputDialog
 
 
-class Market(QMainWindow, Ui_MainWindow):
+class Market(QMainWindow, Ui_Market):
     def __init__(self, user_id=2):
         super().__init__()
         self.setupUi(self)
