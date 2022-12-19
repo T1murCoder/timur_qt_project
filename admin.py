@@ -6,6 +6,7 @@ from interfaces.admin_ui import Ui_Admin
 from StyleSheet import styleSheet
 from PyQt5.QtWidgets import QMainWindow, QApplication, QTableWidgetItem
 from PyQt5.QtWidgets import QFileDialog
+import getpass
 
 
 class Admin(QMainWindow, Ui_Admin):
@@ -166,7 +167,8 @@ class Admin(QMainWindow, Ui_Admin):
 
     def import_goods_to_csv(self):
         try:
-            path, cap = QFileDialog.getSaveFileName(self, 'Save file', 'Записи\\', "Table files (*.csv)")
+            path, cap = QFileDialog.getSaveFileName(self, 'Save file', f'C:\\Users\\{getpass.getuser()}\\Desktop\\',
+                                                    "Table files (*.csv)")
 
             res = self.goods_connection.cursor().execute("""SELECT goods.id, goods.name as GoodName, goods.price,
             categories.name as CategoryName,
@@ -193,7 +195,8 @@ class Admin(QMainWindow, Ui_Admin):
 
     def import_users_to_csv(self):
         try:
-            path, cap = QFileDialog.getSaveFileName(self, 'Save file', 'Записи\\', "Table files (*.csv)")
+            path, cap = QFileDialog.getSaveFileName(self, 'Save file', f'C:\\Users\\{getpass.getuser()}\\Desktop\\',
+                                                    "Table files (*.csv)")
 
             res = self.user_connection.cursor().execute("""SELECT id, username,
                                                             card_number, phone_number FROM users""").fetchall()
