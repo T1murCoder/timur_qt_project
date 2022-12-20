@@ -209,7 +209,7 @@ class Market(QMainWindow, Ui_Market):
             return ''
 
     def link_phone_number(self):
-        phone, ok_pressed = QInputDialog.getText(self, "Введите номер телефона", "Введите  цифр")
+        phone, ok_pressed = QInputDialog.getText(self, "Введите номер телефона", "Введите номер телефона")
 
         def check_phone(phone):
             if phone == '':
